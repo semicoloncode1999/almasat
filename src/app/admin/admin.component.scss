@@ -1,0 +1,33 @@
+.bar{
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    background-color: black;
+}
+
+.flex-shrink-0 {
+    height: 100vh;
+}
+
+.content {
+    width: calc(100% - 250px);
+    position: fixed;
+    top: 0;
+    left: 255px;
+    height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    border: 2px solid gold;
+    height: 100%;
+    border-radius: 16px;
+    padding: 10px;
+    overflow: auto;
+}
+
+.bi{
+    margin-right: 10px;
+}

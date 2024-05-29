@@ -1,0 +1,112 @@
+<div class="col-12">
+    <div class="d-flex justify-content-end buttons-group">
+        <button class="btn btn-primary" (click)="controlView='add'" [disabled]="controlView=='add'">add</button>
+        <button class="btn btn-secondary" (click)="controlView='data'" [disabled]="controlView=='data'">show
+            data</button>
+    </div>
+
+    <form class="form m-4" [formGroup]="product" *ngIf="controlView=='add' || controlView=='edit'"
+        (ngSubmit)="submit()">
+        <!-- images -->
+        <div class="form-group">
+            <label for="images" class="drop-container" id="dropcontainer">
+                <span class="drop-title">Drop files here</span>
+                <input type="file" id="images" class="file-upload" multiple accept="image/*" (change)="upload($event)"
+                    required>
+            </label>
+            <img [src]="item" alt="" class="image-product" *ngFor="let item of promoImage">
+        </div>
+        <!-- page title -->
+        <div class="form-group">
+            <label for="title">choose page</label>
+            <!-- select category -->
+            <div class="form-group">
+                <label for="category">select category</label>
+                <select name="category" id="category" class="form-select" formControlName="category">
+                    <option [value]="item" *ngFor="let item of pages">{{item}}</option>
+                </select>
+            </div>
+        </div>
+        <!-- product title -->
+        <div class="form-group">
+            <label for="title">Add product title</label>
+            <input type="text" id="title" class="form-control" formControlName="title">
+        </div>
+        <!-- adding form details array  -->
+        <div class="form-group" formArrayName="details">
+            <label for="">Add product details</label>
+            <!-- fristly we call form array name -->
+            <!--  then we loop on the inputs array by get function   =>  arrayname?.controls  &  the index -->
+            <div class="inputs-group" *ngFor="let item of detailsArray?.controls ; let i = index">
+                <!-- then we bind the formGroupName in the form array    ==>>  [formGroupName]=" index in the array "   -->
+                <ng-container [formGroupName]="i">
+                    <!-- and then write the input with   formControlName -->
+                    <input type="text" class="form-control" placeholder="details" formControlName="details">
+                </ng-container>
+            </div>
+            <div class="btn btn-primary add-form-item" (click)="addFormDetails()"><span>+</span></div>
+        </div>
+        <!-- adding form price array  -->
+        <div class="form-group mt-3" formArrayName="prices">
+            <label for="">Add product price</label>
+            <div class="inputs-group" let *ngFor="let item of priceArray?.controls; let i = index">
+                <ng-container [formGroupName]="i">
+                    <input type="text" class="form-control" placeholder="price" formControlName="price">
+                </ng-container>
+            </div>
+            <div class="btn btn-primary add-form-item" (click)="addFormPrice()"><span>+</span></div>
+        </div>
+        <!-- select category -->
+        <div class="form-group">
+            <label for="category">select category</label>
+            <select name="category" id="category" class="form-select" formControlName="category">
+                <option [value]="item" *ngFor="let item of categories">{{item}}</option>
+            </select>
+        </div>
+        <!-- available  -->
+        <div class="form-group">
+            <label for="">available</label> <br>
+            <span>
+                <label for="categoryYes" class="m-1 fs-6">yes</label>
+                <input type="radio" name="available" id="categoryYes" formControlName="available" value="true" checked>
+            </span>
+            <span class="m-3">
+                <label for="categoryNo" class="m-1 fs-6">no</label>
+                <input type="radio" name="available" id="categoryNo" formControlName="available" value="false">
+            </span>
+        </div>
+        <div class="text-center p-2">
+            <button type="submit" class="btn btn-primary" *ngIf="promoImage.length">add photo</button>
+        </div>
+    </form>
+
+    <table class="table text-center" *ngIf="controlView=='data'">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">photo</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td><img src="assets/1.png" class="image-product" class="image-product" alt=""></td>
+                <td>
+                    <button class="btn btn-warning"><i class="bi bi-trash3"></i></button>
+                    <button class="btn btn-danger"><i class="bi bi-pencil-square"></i></button>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">1</th>
+                <td><img src="assets/1.png" class="image-product" alt=""></td>
+                <td>
+                    <button class="btn btn-warning"><i class="bi bi-trash3"></i></button>
+                    <button class="btn btn-danger"><i class="bi bi-pencil-square"></i></button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+
+</div>

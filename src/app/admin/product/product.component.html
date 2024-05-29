@@ -1,0 +1,96 @@
+<div class="col-12">
+    <div class="d-flex justify-content-end buttons-group">
+        <button class="btn btn-primary" (click)="controlView='add';resetData()"
+            [disabled]="controlView=='add'">add</button>
+        <!-- <button class="btn btn-secondary" (click)="controlView='data'" [disabled]="controlView=='data'">show data</button> -->
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                show data
+            </button>
+            <ul class="dropdown-menu">
+                <li><button class="dropdown-item" (click)="controlView='ring'">rings</button></li>
+                <li><button class="dropdown-item" (click)="controlView='gemstone'">gymstones</button></li>
+                <li><button class="dropdown-item" (click)="controlView='rosary'">rosary </button></li>
+            </ul>
+        </div>
+    </div>
+
+    <form class="form m-4" [formGroup]="product" *ngIf="controlView=='add' || controlView=='edit'"
+        (ngSubmit)="uploadImg()">
+        <!-- images -->
+        <div class="form-group">
+            <label for="images" class="drop-container" id="dropcontainer">
+                <span class="drop-title">Drop files here <span class="text-info text-decoration-underline">or
+                        browse</span></span>
+                <input type="file" id="images" class="file-upload" multiple accept="image/*" (change)="upload($event)"
+                    required>
+            </label>
+            <div cdkDropList cdkDropListOrientation="horizontal" class="example-list"
+                (cdkDropListDropped)="drop($event)">
+                <div class="example-box" cdkDrag *ngFor="let item of promoImages;">
+                    <img [src]="item" alt="" class="image-product">
+                </div>
+            </div>
+        </div>
+        <!-- choose category -->
+        <div class="form-group">
+            <label for="category">select category</label>
+            <select name="category" id="category" class="form-select" formControlName="category">
+                <option [value]="item" *ngFor="let item of categories">{{item}}</option>
+            </select>
+        </div>
+        <!-- product title -->
+        <div class="form-group">
+            <label for="title">Add product title</label>
+            <input type="text" id="title" class="form-control" placeholder="title" formControlName="title">
+        </div>
+        <!-- adding form details array  -->
+        <div class="form-group" formArrayName="details">
+            <label for="">Add product details</label>
+            <!-- fristly we call form array name -->
+            <!--  then we loop on the inputs array by get function   =>  arrayname?.controls  &  the index -->
+            <div class="inputs-group" *ngFor="let item of detailsArray?.controls ; let i = index">
+                <!-- then we bind the formGroupName in the form array    ==>>  [formGroupName]=" index in the array "   -->
+                <ng-container [formGroupName]="i">
+                    <!-- and then write the input with   formControlName -->
+                    <textarea type="text" class="form-control" placeholder="details" formControlName="details" rows="2"></textarea>
+                </ng-container>
+                <div class="btn btn-primary add-form-item" (click)="addFormDetails()"><span>+</span></div>
+                <div class="btn btn-danger remove-form-item" (click)="removeDetail(i)"><span>-</span></div>
+            </div>
+        </div>
+        <!-- adding form price array  -->
+        <div class="form-group mt-3" formArrayName="prices">
+            <label for="">Add product price</label>
+            <div class="inputs-group" let *ngFor="let item of priceArray?.controls; let i = index">
+                <ng-container [formGroupName]="i">
+                    <textarea type="text" class="form-control" placeholder="price" formControlName="price" rows="2"></textarea>
+                </ng-container>
+                <div class="btn btn-primary add-form-item" (click)="addFormPrice()"><span>+</span></div>
+                <div class="btn btn-danger remove-form-item" (click)="removePrice(i)"><span>-</span></div>
+            </div>
+        </div>
+        <!-- available  -->
+        <div class="form-group">
+            <label for="">available</label> <br>
+            <span>
+                <label for="categoryYes" class="m-1 fs-6">yes</label>
+                <input type="radio" name="available" id="categoryYes" formControlName="available" value="true" checked>
+            </span>
+            <span class="m-3">
+                <label for="categoryNo" class="m-1 fs-6">no</label>
+                <input type="radio" name="available" id="categoryNo" formControlName="available" value="false">
+            </span>
+        </div>
+        <div class="text-center p-2">
+            <button type="submit" class="btn btn-primary" *ngIf="promoImages.length && controlView=='add'">Add
+                product</button>
+            <button type="submit" class="btn btn-warning" *ngIf="promoImages.length && controlView=='edit'">Edit
+                product</button>
+        </div>
+    </form>
+
+    <app-view-edit-prods *ngIf="controlView !='add' && controlView !='edit'" [dataInputView]="controlView"
+        (sendProduct)="getItem($event)"></app-view-edit-prods>
+</div>
