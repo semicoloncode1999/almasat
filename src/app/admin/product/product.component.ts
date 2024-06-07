@@ -1,3 +1,4 @@
+import { CountriesCurrencyService } from './../../modules/services/countries-currency.service';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { Component } from '@angular/core';
 import { Validators, FormBuilder, FormArray } from '@angular/forms';
@@ -9,15 +10,18 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
-  styleUrls: ['./product.component.scss', '../../modules/css-styles/admin.styles.css' ,'../../modules/css-styles/admin.drag-drop.css']
+  styleUrls: ['./product.component.scss', '../../modules/css-styles/admin.form.product.styles.css', '../../modules/css-styles/change-position.drag-drop.css']
 })
 export class ProductComponent {
   controlView: string = "add";
   promoImages: string[] = [];
+  bigImages: any[] = [];
   categories: string[] = ["ring", "gemstone", "rosary", "other"];
   imgFiles: any[] = [];
   globalProduct: any;
   globalProductKey: string = "";
+  loadingMsg: string = "";
+  countries: string[] = []
 
   product = this.formBuilder.group({
     id: [new Date().getTime()],
@@ -26,14 +30,17 @@ export class ProductComponent {
     category: ["", Validators.required],
     details: this.formBuilder.array([]),
     prices: this.formBuilder.array([]),
-    // discount: ["", Validators.required],
+    discount: [0, Validators.required],
+    productRate: ["", Validators.required],
+    showOnHome: [true, Validators.required],
     available: [true, Validators.required],
   })
 
   constructor(private uploadImagePromoServ: UploadImagePromoService, private firestorage: AngularFireStorage,
-    private dataServ: DataService, private formBuilder: FormBuilder) {
-    this.addFormDetails()
-    this.addFormPrice()
+    private dataServ: DataService, private countriesServ: CountriesCurrencyService, private formBuilder: FormBuilder) {
+    this.addFormDetails();
+    this.addFormPrice();
+    this.countries = countriesServ.arabicCurrencies
   }
 
   get imagesArray() {
@@ -55,35 +62,48 @@ export class ProductComponent {
 
   addFormPrice() {
     let addFormItem = this.formBuilder.group({
-      price: [""]
+      priceValue: ["", [Validators.required, Validators.min(0)]],
+      countryCurrency: ["", Validators.required],
     })
     this.priceArray.push(addFormItem)  // always push formGroup in any formArray
   }
 
   // ---------------------------- upload images ---------------------------
-  upload(event: any) {
-    for (const item of event.target.files) {
-      this.imgFiles.push(item)
-    }
-    this.promoImages = this.uploadImagePromoServ.upload(event);
-  }
+  // upload(event: any) {
+  //   for (const item of event.target.files) {
+  //     this.imgFiles.push(item)
+  //   }
+  //   this.promoImages = this.uploadImagePromoServ.upload(event, this.controlView);
+  // }
 
   // funcion to upload img file and get image url
-  async uploadImg() {
-    if (this.imgFiles.length) {
-      this.imagesArray.clear();
-      for (const item of this.imgFiles) {
-        const path = `Images/${new Date().getTime()}${item.name}`;
-        const uploadTask = await this.firestorage.upload(path, item);
-        const url = await uploadTask.ref.getDownloadURL();
-        let img = this.formBuilder.group({
-          img: url
-        })
-        this.imagesArray.push(img);  // always push formGroup in any formArray
+  async uploadImg(event: any) {
+    //get images and check there sizes
+    this.bigImages = event.target.files.length ? [] : this.bigImages
+    if (this.loadingMsg != "uploading") {
+      for (const item of event.target.files) {
+        if (item.size / 1024 > 100) {
+          this.bigImages.push(item)
+        } else {
+          this.imgFiles.push(item);
+        }
       }
-      this.submit()
-    } else if (this.controlView == 'edit') {
-      this.submit()
+      this.loadingMsg = "uploading";
+      if (this.imgFiles.length) {
+        // this.imagesArray.clear();
+        for (const item of this.imgFiles) {
+          const path = `Images/${new Date().getTime()}${item.name}`;
+          const uploadTask = await this.firestorage.upload(path, item);
+          const url = await uploadTask.ref.getDownloadURL();
+          let img = this.formBuilder.group({
+            img: url
+          })
+          this.imagesArray.push(img);  // always push formGroup in any formArray
+          this.promoImages.push(url)
+        }
+      }
+      this.loadingMsg = "";
+      this.imgFiles = []
     }
   }
 
@@ -93,30 +113,32 @@ export class ProductComponent {
       id: new Date().getTime(),
       title: '',
       category: '',
+      discount: 0,
+      productRate: '',
       available: true,
+      showOnHome: true,
     })
-    this.imgFiles=[]
+    this.imgFiles = []
     this.imagesArray.clear() // reset imagesArray in form from any data
     this.detailsArray.clear() // reset detailsArray in form from any data
     this.priceArray.clear() // reset priceArray in form from any data
     this.addFormDetails()
     this.addFormPrice()
     this.promoImages = [];
-    
   }
 
   // --------------------- send Item---------------------------
   submit() {
     if (this.product.valid) {
       if (this.controlView == "add") {
-        this.dataServ.createOrder("", this.controlView, this.product.value).subscribe(()=>{
+        this.dataServ.createOrder("", this.controlView, this.product.value).subscribe(() => {
           this.resetData();
         })
       } else {
         this.dataServ.getProducts(this.globalProduct.category).subscribe(data => {
           for (const key in data) {
             if (this.globalProduct.id == data[key].id) {
-              this.dataServ.createOrder(key, this.controlView, this.product.value).subscribe(()=>{
+              this.dataServ.createOrder(key, this.controlView, this.product.value).subscribe(() => {
                 this.resetData();
               })
               break;
@@ -129,15 +151,14 @@ export class ProductComponent {
 
   // --------------------- remove last detail Item---------------------------
   removeDetail(index: number) {
-    if (index != 0)
+    if (this.detailsArray.length > 1)
       this.detailsArray.removeAt(index)
   }
   // --------------------- remove last price Item---------------------------
   removePrice(index: number) {
-    if (index != 0)
+    if (this.priceArray.length > 1)
       this.priceArray.removeAt(index)
   }
-
   // --------------------- Get Item data for Edit And Delete ---------------------------
   getItem(item: any) {
     this.resetData()
@@ -149,7 +170,10 @@ export class ProductComponent {
       id: item.id,
       title: item.title,
       category: item.category,
+      discount: item.discount,
+      productRate: item.productRate,
       available: item.available,
+      showOnHome: item.showOnHome,
     })
     // get all images
     for (const obj of item.images) {
@@ -159,7 +183,7 @@ export class ProductComponent {
       this.promoImages.push(obj.img)
       this.imagesArray.push(img);  // always push formGroup in any formArray
     }
-    // get all detsils
+    // get all details
     for (const obj of item.details) {
       let detail = this.formBuilder.group({
         details: obj.details
@@ -169,28 +193,38 @@ export class ProductComponent {
     // get all prices
     for (const obj of item.prices) {
       let price = this.formBuilder.group({
-        price: obj.price
+        priceValue: obj.priceValue,
+        countryCurrency: obj.countryCurrency,
       })
       this.priceArray.push(price);  // always push formGroup in any formArray
     }
   }
 
+  // ordering product images 
   drop(event: CdkDragDrop<any[]>) { // note that we change the type to  any in  =>   event: CdkDragDrop<any[]>
-    if(this.imgFiles.length && (this.controlView=='add' || this.controlView == 'edit')){
-      moveItemInArray(this.promoImages, event.previousIndex, event.currentIndex); // this line for  ordering the  promo images
-      moveItemInArray(this.imgFiles, event.previousIndex, event.currentIndex); // this line for  ordering the  images Files
-    }else if(this.controlView == 'edit'){
-      moveItemInArray(this.promoImages, event.previousIndex, event.currentIndex); // this line for  ordering the  promo images
-      this.imagesArray.clear()
-      for (const item of this.promoImages) {
-        let img = this.formBuilder.group({
-          img: item
-        })
-        this.imagesArray.push(img);  // always push formGroup in any formArray
-      }
+    // if (this.imgFiles.length && (this.controlView == 'add' || this.controlView == 'edit')) {
+    // moveItemInArray(this.imgFiles, event.previousIndex, event.currentIndex); // this line for  ordering the  images Files
+    // moveItemInArray(this.promoImages, event.previousIndex, event.currentIndex); // this line for  ordering the  promo images
+    // } else if (this.controlView == 'edit') { }
+    moveItemInArray(this.promoImages, event.previousIndex, event.currentIndex); // this line for  ordering the  promo images
+    this.orderingProductImages()
+  }
+  // ordering product images after darg drop ordering
+  orderingProductImages() {
+    this.imagesArray.clear()
+    for (const item of this.promoImages) {
+      let img = this.formBuilder.group({
+        img: item
+      })
+      this.imagesArray.push(img);  // always push formGroup in any formArray
     }
   }
 
+  del(index: number) {
+    this.firestorage.refFromURL(this.promoImages[index]).delete()
+    this.promoImages.splice(index, 1);
+    this.orderingProductImages();
+  }
 
 }
 

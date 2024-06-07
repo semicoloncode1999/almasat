@@ -1,0 +1,41 @@
+<div class="container d-flex justify-content-end buttons-group">
+    <button class="btn btn-primary" (click)="controlView='add';resetData()"
+        [disabled]="controlView=='add'">add</button>
+    <!-- <button class="btn btn-secondary" (click)="controlView='data'" [disabled]="controlView=='data'">show data</button> -->
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            show data
+        </button>
+        <ul class="dropdown-menu">
+            <li><button class="dropdown-item" (click)="controlView='ring'">rings</button></li>
+            <li><button class="dropdown-item" (click)="controlView='gemstone'">gymstones</button></li>
+            <li><button class="dropdown-item" (click)="controlView='rosary'">rosary </button></li>
+        </ul>
+    </div>
+</div>
+
+<div class="container">
+    <form action="">
+       
+        <!-- choose category -->
+        <div class="form-group">
+            <label for="category">select category</label>
+            <select name="category" id="category" class="form-select" formControlName="category">
+                <option [value]="item" *ngFor="let item of categories">{{item}}</option>
+            </select>
+        </div>
+
+        <!-- upload photo -->
+        <div class="form-group">
+            <label for="file">upload photo</label>
+            <input type="file" class="form-control" (change)="uploadImages($event)">
+        </div>
+    
+        <!-- --- button submit --- -->
+        <div class="text-center p-2">
+            <button type="submit" class="btn btn-primary" *ngIf="promoImages.length && controlView=='add'" [disabled]="loadingMsg">Add product</button>
+            <button type="submit" class="btn btn-warning" *ngIf="promoImages.length && controlView=='edit'" [disabled]="loadingMsg">Edit product</button>
+        </div>
+    </form>
+</div>

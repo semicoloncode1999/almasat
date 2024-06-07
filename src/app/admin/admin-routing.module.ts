@@ -10,6 +10,7 @@ const routes: Routes = [
     {path:"products" , loadChildren : () => import("./product/product.module" ).then(m => m.ProductModule)},
     {path:"media"  , loadChildren : () => import("./admin-social-media/admin-social-media.module").then(m => m.AdminSocialMediaModule)},
     {path:"about"  , loadChildren : () => import("./admin-about/admin-about.module").then(m => m.AdminAboutModule)},
+    {path:"carasouels"  , loadChildren : () => import("./carasouels/carasouels.module").then(m => m.CarasouelsModule)},
     // {path:"" , component:},
   ]},
 ];

@@ -9,6 +9,7 @@
     border-radius: 4px;
     overflow: hidden;
     margin: 5px;
+    overflow-x: auto;
   }
   
   .example-box {
@@ -26,6 +27,7 @@
       flex-grow: 1;
       flex-basis: 0;
       margin: 5px;
+      position: relative;
   }
   
   .cdk-drag-preview {

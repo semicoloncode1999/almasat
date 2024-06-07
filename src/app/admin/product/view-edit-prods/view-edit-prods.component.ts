@@ -8,9 +8,9 @@ import { UploadImagePromoService } from 'src/app/modules/services/upload-image-p
 @Component({
   selector: 'app-view-edit-prods',
   templateUrl: './view-edit-prods.component.html',
-  styleUrls: ['./view-edit-prods.component.scss', '../../../modules/css-styles/admin.styles.css']
+  styleUrls: ['./view-edit-prods.component.scss', '../../../modules/css-styles/admin.form.product.styles.css']
 })
-export class ViewEditProdsComponent implements OnChanges{
+export class ViewEditProdsComponent implements OnChanges {
   controlView: string = "add";
 
   promoImages: any[] = [];
@@ -21,9 +21,9 @@ export class ViewEditProdsComponent implements OnChanges{
 
   imgFiles: any;
 
-  @Input() dataInputView:string="";
+  @Input() dataInputView: string = "";
 
-  @Output() sendProduct:EventEmitter<product>=new EventEmitter();
+  @Output() sendProduct: EventEmitter<product> = new EventEmitter();
 
   product = this.formBuilder.group({
     images: this.formBuilder.array([]),
@@ -40,16 +40,20 @@ export class ViewEditProdsComponent implements OnChanges{
   }
 
   ngOnChanges(): void {
-    this.controlView=this.dataInputView;
-    this.products=this.dataServ.getProductsArray(this.dataInputView)
+    this.controlView = this.dataInputView;
+    this.products = this.dataServ.getProductsArray(this.dataInputView)
   }
-  
+
   getItem(item: product) {
     this.sendProduct.emit(item)
   }
 
-  deleteItem(item:product){
+  deleteItem(item: product) {
+    let images: any = item.images
     this.dataServ.deleteItem(item)
+    for (const tep of images) {
+      this.firestorage.refFromURL(tep.img).delete()
+    }
   }
 
 }

@@ -3,8 +3,19 @@ export interface product{
     images: [],
     title:string,
     category:string,
-    details:string[],
-    prices:string[],
-    // discount:string,
+    details:details[],
+    prices:prices[],
+    discount:number,
+    productRate:string,
     available: boolean,
+    showOnHome: boolean,
+}
+
+export interface details{
+    details:string
+}
+
+export interface prices{
+    priceValue:string,
+    countryCurrency:string
 }

@@ -55,7 +55,7 @@ export class AdminRingsComponent {
   }
 
   upload(event: any) {
-    this.promoImage = this.uploadImagePromoServ.upload(event);
+    // this.promoImage = this.uploadImagePromoServ.uploadImg(event);
   }
 
   submit() {
