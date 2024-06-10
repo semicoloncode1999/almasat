@@ -1,14 +1,14 @@
 export interface product{
     id:number
-    images: [],
+    images: any[],
     title:string,
     category:string,
     details:details[],
     prices:prices[],
     discount:number,
     productRate:string,
-    available: boolean,
-    showOnHome: boolean,
+    available: string,
+    showOnHome: string,
 }
 
 export interface details{

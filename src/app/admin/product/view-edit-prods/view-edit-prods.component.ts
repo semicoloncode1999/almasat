@@ -12,17 +12,12 @@ import { UploadImagePromoService } from 'src/app/modules/services/upload-image-p
 })
 export class ViewEditProdsComponent implements OnChanges {
   controlView: string = "add";
-
   promoImages: any[] = [];
-
   products: any[] = [];
-
   categories: string[] = ["ring", "gemstone", "rosary", "other"];
-
   imgFiles: any;
 
   @Input() dataInputView: string = "";
-
   @Output() sendProduct: EventEmitter<product> = new EventEmitter();
 
   product = this.formBuilder.group({

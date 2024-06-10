@@ -1,73 +1,71 @@
 <div class="bar">
-    <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark">
-        <a routerLink="/admin" [routerLinkActive]="'active'" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-          <i class="bi bi-gem"></i>
-          <span class="fs-5 text-center">Almasat Alkhalij kw</span>
+  <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark">
+    <a routerLink="/admin" [routerLinkActive]="'active'"
+      class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+      <i class="bi bi-gem"></i>
+      <span class="fs-5 text-center">Almasat Alkhalij kw</span>
+    </a>
+    <hr>
+    <ul class="nav nav-pills flex-column mb-auto text-capitalize">
+      <li class="nav-item">
+        <a routerLink="/admin" [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact:true}"
+          class="nav-link text-white" aria-current="page">
+          <i class="bi bi-house-heart"></i>
+          Home
         </a>
-        <hr>
-        <ul class="nav nav-pills flex-column mb-auto text-capitalize">
-          <li class="nav-item">
-            <a routerLink="/admin" [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact:true}" class="nav-link text-white" aria-current="page">
-              <i class="bi bi-house-heart"></i>
-              Home
-            </a>
-          </li>
-          <li>
-            <a routerLink="/admin/products" [routerLinkActive]="'active'" class="nav-link text-white">
-              <i class="bi bi-stars"></i>
-              products
-            </a>
-          </li>
-          <li>
-            <a routerLink="/admin/carasouels" [routerLinkActive]="'active'" class="nav-link text-white">
-              <i class="bi bi-diamond-half"></i>
-              carasouels
-            </a>
-          </li>
-          <li>
-            <a routerLink="/admin/gemstones" [routerLinkActive]="'active'" class="nav-link text-white">
-              <i class="bi bi-diamond-half"></i>
-              Gemstones
-            </a>
-          </li>
-          <li>
-            <a routerLink="/admin/rosary" [routerLinkActive]="'active'" class="nav-link text-white">
-              <i class="bi bi-circle"></i>
-              rosary
-            </a>
-          </li>
-          <li>
-            <a routerLink="/admin/media" [routerLinkActive]="'active'" class="nav-link text-white">
-              <i class="bi bi-collection-play"></i>
-              social media
-            </a>
-          </li>
-          <li>
-            <a routerLink="/admin/about" [routerLinkActive]="'active'" class="nav-link text-white">
-              <i class="bi bi-person-vcard"></i>
-              About Us
-            </a>
-          </li>
-        </ul>
-        <hr>
-        <div class="dropdown">
-          <a routerLink="/admin/" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="assets/logo.PNG" alt="" width="32" height="32" class="rounded-circle me-2">
-            <strong>profile</strong>
-          </a>
-          <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-            <!-- <li><a class="dropdown-item" routerLink="/admin/">New project...</a></li>
+      </li>
+      <li>
+        <a routerLink="/admin/products" [routerLinkActive]="'active'" class="nav-link text-white">
+          <i class="bi bi-stars"></i>
+          products
+        </a>
+      </li>
+      <li>
+        <a routerLink="/admin/carasouels" [routerLinkActive]="'active'" class="nav-link text-white">
+          <i class="bi bi-diamond-half"></i>
+          carasouels
+        </a>
+      </li>
+      <li>
+        <a routerLink="/admin/youtube" [routerLinkActive]="'active'" class="nav-link text-white">
+          <i class="bi bi-diamond-half"></i>
+          youtube
+        </a>
+      </li>
+      <li>
+        <a routerLink="/admin/social-links" [routerLinkActive]="'active'" class="nav-link text-white">
+          <i class="bi bi-circle"></i>
+          social links
+        </a>
+      </li>
+      
+      <li>
+        <a routerLink="/admin/about-us" [routerLinkActive]="'active'" class="nav-link text-white">
+          <i class="bi bi-person-vcard"></i>
+          About Us
+        </a>
+      </li>
+    </ul>
+    <hr>
+    <div class="dropdown">
+      <a routerLink="/admin/" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+        id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+        <img src="assets/logo.PNG" alt="" width="32" height="32" class="rounded-circle me-2">
+        <strong>profile</strong>
+      </a>
+      <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+        <!-- <li><a class="dropdown-item" routerLink="/admin/">New project...</a></li>
             <li><a class="dropdown-item" routerLink="/admin/">Settings</a></li>
             <li><a class="dropdown-item" routerLink="/admin/">Profile</a></li> -->
-            <!-- <li><hr class="dropdown-divider"></li> -->
-            <li><a class="dropdown-item" routerLink="/admin/">Sign out</a></li>
-          </ul>
-        </div>
-      </div>
+        <!-- <li><hr class="dropdown-divider"></li> -->
+        <li><a class="dropdown-item" routerLink="/admin/">Sign out</a></li>
+      </ul>
+    </div>
+  </div>
 </div>
 
 <div class="content">
-    <div class="container">
-      <router-outlet></router-outlet>
-    </div>
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>
 </div>

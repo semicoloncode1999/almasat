@@ -1,0 +1,12 @@
+.pre-delete {
+    background-color: white;
+    height: 88vh;
+    width: 100%;
+    z-index: 2;
+    position: absolute;
+    top: -5px;
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

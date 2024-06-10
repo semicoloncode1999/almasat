@@ -5,6 +5,8 @@ import { CarasouelsRoutingModule } from './carasouels-routing.module';
 import { CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CarasouelsComponent } from './carasouels.component';
+import { ViewItemsComponent } from '../view-items/view-items.component';
+import { AdminModule } from '../admin.module';
 
 
 @NgModule({
@@ -18,6 +20,7 @@ import { CarasouelsComponent } from './carasouels.component';
     ReactiveFormsModule,
     CdkDrag,
     CdkDropList,
+    AdminModule
   ]
 })
 export class CarasouelsModule { }

@@ -1,5 +1,12 @@
-import { Component } from '@angular/core';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { Component, OnDestroy } from '@angular/core';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { FormArray, FormBuilder, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
+import { carasouel } from 'src/app/modules/interfaces/carasouels.interface';
+import { CarasouelsService } from 'src/app/modules/services/carasouels.service';
+import { DataService } from 'src/app/modules/services/data.service';
 import { UploadImagePromoService } from 'src/app/modules/services/upload-image-promo.service';
 
 @Component({
@@ -7,55 +14,125 @@ import { UploadImagePromoService } from 'src/app/modules/services/upload-image-p
   templateUrl: './carasouels.component.html',
   styleUrls: ['./carasouels.component.scss', '../../modules/css-styles/admin.form.product.styles.css', '../../modules/css-styles/change-position.drag-drop.css']
 })
-export class CarasouelsComponent {
-  
+export class CarasouelsComponent implements OnDestroy {
+
   controlView: string = "add";
   promoImages: string[] = [];
-  bigImages: any[] = [];
-  categories: string[] = ["ring", "gemstone", "rosary", "other"];
-  imgFiles: any[] = [];
-  globalProduct: any;
-  globalProductKey: string = "";
+  carasouels: carasouel[] = [];
+  categories: string[];
+  globalCarasouelObject!: carasouel;
+  globalCarasouelObjectKey!: string ;
   loadingMsg: string = "";
+  subscribtions: Subscription[]=[];
 
-  product = this.formBuilder.group({
+  constructor(private formBuilder: FormBuilder, private productServ: DataService, private uploadServ: UploadImagePromoService
+    , private toastr: ToastrService, private firestorage: AngularFireStorage, private carasouelServ: CarasouelsService) {
+    this.categories = productServ.productCategories;
+  }
+
+  carasouel = this.formBuilder.group({
     id: [new Date().getTime()],
-    images: this.formBuilder.array([]),
+    images: this.formBuilder.array([], Validators.minLength(1)),
     page: ["", Validators.required],
-    // title: ["", Validators.required],
-    // details: this.formBuilder.array([]),
-  })
-  constructor(private formBuilder:FormBuilder, private uploadServ:UploadImagePromoService){}
-
-  carasouel=this.formBuilder.group({
-    image:["",Validators.required],
-    category:["",Validators.required],
     // title:["",Validators.required],
     // details:["",Validators.required],
     // link:["",Validators.required],
   })
 
   get imagesArray() {
-    return this.product.get("images") as FormArray;
+    return this.carasouel.get("images") as FormArray;
   }
-  
-    // --------------------- Reset Data ---------------------------
+
+  // ------------------------------- Reset Data ------------------------------
   resetData() {
-    this.product.patchValue({
+    this.carasouel.patchValue({
       id: new Date().getTime(),
       page: '',
     })
-    this.imgFiles = []
+    this.globalCarasouelObject = {} as carasouel;
     this.imagesArray.clear() // reset imagesArray in form from any data
     this.promoImages = [];
+    this.uploadServ.imagesArray = [] // at upload service
   }
 
-  submit(){
+  // --------------------- upload images Array on server ---------------------
+  uploadImages(event: any) {
+    this.loadingMsg = "uploading";
+    this.uploadServ.uploadImg(event.target.files).then((resolve) => {
+      this.promoImages = resolve;
+      this.orderingProductImages()
+      this.loadingMsg = "";
+    })
+  }
+
+  //-------------------------- ordering images Array -------------------------
+  drop(event: CdkDragDrop<any[]>) { // note that we change the type to  any in  =>   event: CdkDragDrop<any[]>
+    moveItemInArray(this.promoImages, event.previousIndex, event.currentIndex); // this line for  ordering the  promo images
+    this.uploadServ.imagesArray = this.promoImages
+    this.orderingProductImages()
+  }
+
+  // ---------- ordering carasouel images after darg drop ordering ------------
+  orderingProductImages() {
+    this.imagesArray.clear() // reset imagesArray in formBuilder  => from any data
+    for (const item of this.promoImages) {
+      let img = this.formBuilder.group({
+        img: item
+      })
+      this.imagesArray.push(img);  // always push formGroup in any formArray
+    }
+  }
+
+  // ----------------------------  get Carasouel Category ----------------------------
+  getCarasouelCategory(event:any) {
+    this.resetData()
+    this.carasouelServ.getCarasouels().subscribe({
+      next: data => {
+        for (const key in data) {
+          if (data[key].page == event.target.value){
+              this.globalCarasouelObject=data[key];
+              this.globalCarasouelObjectKey=key
+              break;
+            }
+        }
+      },complete:()=>{
+        this.carasouel.patchValue({
+          id: this.globalCarasouelObject.id,
+          page: this.globalCarasouelObject.page,
+        })
+        for (const iterator of this.globalCarasouelObject.images) {
+          this.promoImages.push(iterator.img);
+        }
+        this.uploadServ.imagesArray = this.promoImages
+      }
+    })
 
   }
 
-  uploadImages(event:any){
-    this.uploadServ.uploadImg(event.target.files).then(()=> this.promoImages = this.uploadServ.imagesArray)
+  // ---------------------------- submit ----------------------------
+  submit() {
+    if (this.carasouel.valid) {
+      this.carasouelServ.create(this.globalCarasouelObjectKey, this.carasouel.value).subscribe(() => {
+        this.toastr.success("carasouel uploaded successfully")
+        this.resetData()
+      })
+    } else
+      this.toastr.error("complete all carasouel data")
   }
 
+
+  // ---------------------------- delete item ----------------------------
+  del(index: number) {
+    this.firestorage.refFromURL(this.promoImages[index]).delete()
+    this.promoImages.splice(index, 1);
+    this.uploadServ.imagesArray = this.promoImages
+    this.orderingProductImages();
+    this.submit()
+  }
+
+  ngOnDestroy(): void {
+    for (const iterator of this.subscribtions) {
+      iterator.unsubscribe()
+    }
+  }
 }

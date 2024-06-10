@@ -10,13 +10,13 @@ export class UploadImagePromoService {
   constructor( private firestorage: AngularFireStorage, private formBuilder: FormBuilder) { }
 
   imagesArray: string[] = [];
-  promoImages: string[] = [];
   imgFiles: any[] = [];
 
 
-  // readImages(event: any, controlView: string=""): string[] {
-  //   if (controlView != 'add')
-  //     this.promoImages = []
+  // --------------------------- change images to code --------------------------
+  // promoImages: string[] = [];
+
+  // readImages(event: any): string[] {
   //   for (const item of event.target.files) {
   //     const reader = new FileReader();
   //     reader.readAsDataURL(item);
@@ -26,8 +26,12 @@ export class UploadImagePromoService {
   //   }
   //   return this.promoImages
   // }
+  // ---------------------------------------------------------------------------
 
+
+  // ---------------------------- upload images on server ----------------------------
   async uploadImg(arr: any) {
+    this.imgFiles=[];
     for (const item of arr) {
       this.imgFiles.push(item)
     }
@@ -39,6 +43,7 @@ export class UploadImagePromoService {
         this.imagesArray.push(url);  // always push formGroup in any formArray
       }
     }
+    return this.imagesArray
   }
 
 }

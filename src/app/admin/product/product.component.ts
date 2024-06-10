@@ -6,6 +6,7 @@ import { DataService } from 'src/app/modules/services/data.service';
 import { UploadImagePromoService } from 'src/app/modules/services/upload-image-promo.service';
 import { product } from 'src/app/modules/interfaces/product.interface';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-product',
@@ -16,7 +17,7 @@ export class ProductComponent {
   controlView: string = "add";
   promoImages: string[] = [];
   bigImages: any[] = [];
-  categories: string[] = ["ring", "gemstone", "rosary", "other"];
+  categories: string[];
   imgFiles: any[] = [];
   globalProduct: any;
   globalProductKey: string = "";
@@ -25,22 +26,23 @@ export class ProductComponent {
 
   product = this.formBuilder.group({
     id: [new Date().getTime()],
-    images: this.formBuilder.array([]),
+    images: this.formBuilder.array([], Validators.minLength(1)),
     title: ["", Validators.required],
     category: ["", Validators.required],
-    details: this.formBuilder.array([]),
-    prices: this.formBuilder.array([]),
+    details: this.formBuilder.array([], Validators.minLength(1)),
+    prices: this.formBuilder.array([], Validators.minLength(1)),
     discount: [0, Validators.required],
     productRate: ["", Validators.required],
-    showOnHome: [true, Validators.required],
-    available: [true, Validators.required],
+    showOnHome: ["false", Validators.required],
+    available: ["true", Validators.required],
   })
 
-  constructor(private uploadImagePromoServ: UploadImagePromoService, private firestorage: AngularFireStorage,
+  constructor(private uploadImagePromoServ: UploadImagePromoService, private firestorage: AngularFireStorage, private toastr: ToastrService,
     private dataServ: DataService, private countriesServ: CountriesCurrencyService, private formBuilder: FormBuilder) {
     this.addFormDetails();
     this.addFormPrice();
-    this.countries = countriesServ.arabicCurrencies
+    this.countries = countriesServ.arabicCurrencies;
+    this.categories = dataServ.productCategories;
   }
 
   get imagesArray() {
@@ -68,43 +70,15 @@ export class ProductComponent {
     this.priceArray.push(addFormItem)  // always push formGroup in any formArray
   }
 
-  // ---------------------------- upload images ---------------------------
-  // upload(event: any) {
-  //   for (const item of event.target.files) {
-  //     this.imgFiles.push(item)
-  //   }
-  //   this.promoImages = this.uploadImagePromoServ.upload(event, this.controlView);
-  // }
-
-  // funcion to upload img file and get image url
-  async uploadImg(event: any) {
-    //get images and check there sizes
-    this.bigImages = event.target.files.length ? [] : this.bigImages
-    if (this.loadingMsg != "uploading") {
-      for (const item of event.target.files) {
-        if (item.size / 1024 > 100) {
-          this.bigImages.push(item)
-        } else {
-          this.imgFiles.push(item);
-        }
-      }
-      this.loadingMsg = "uploading";
-      if (this.imgFiles.length) {
-        // this.imagesArray.clear();
-        for (const item of this.imgFiles) {
-          const path = `Images/${new Date().getTime()}${item.name}`;
-          const uploadTask = await this.firestorage.upload(path, item);
-          const url = await uploadTask.ref.getDownloadURL();
-          let img = this.formBuilder.group({
-            img: url
-          })
-          this.imagesArray.push(img);  // always push formGroup in any formArray
-          this.promoImages.push(url)
-        }
-      }
-      this.loadingMsg = "";
-      this.imgFiles = []
-    }
+  // --------------------- remove detail Item---------------------------
+  removeDetail(index: number) {
+    if (this.detailsArray.length > 1)
+      this.detailsArray.removeAt(index)
+  }
+  // --------------------- remove price Item---------------------------
+  removePrice(index: number) {
+    if (this.priceArray.length > 1)
+      this.priceArray.removeAt(index)
   }
 
   // --------------------- Reset Data ---------------------------
@@ -115,8 +89,8 @@ export class ProductComponent {
       category: '',
       discount: 0,
       productRate: '',
-      available: true,
-      showOnHome: true,
+      available: "true",
+      showOnHome: "false",
     })
     this.imgFiles = []
     this.imagesArray.clear() // reset imagesArray in form from any data
@@ -125,40 +99,58 @@ export class ProductComponent {
     this.addFormDetails()
     this.addFormPrice()
     this.promoImages = [];
+    this.bigImages = []
+    this.controlView = "add"
   }
 
-  // --------------------- send Item---------------------------
-  submit() {
-    if (this.product.valid) {
-      if (this.controlView == "add") {
-        this.dataServ.createOrder("", this.controlView, this.product.value).subscribe(() => {
-          this.resetData();
-        })
-      } else {
-        this.dataServ.getProducts(this.globalProduct.category).subscribe(data => {
-          for (const key in data) {
-            if (this.globalProduct.id == data[key].id) {
-              this.dataServ.createOrder(key, this.controlView, this.product.value).subscribe(() => {
-                this.resetData();
-              })
-              break;
-            }
-          }
-        })
+  // funcion to upload img file and get image url
+  async uploadImg(event: any) {
+    //get images and check there sizes
+    this.bigImages = event.target.files.length ? [] : this.bigImages
+    if (this.loadingMsg != "uploading") {
+      this.loadingMsg = "uploading";
+      for (const item of event.target.files) {
+        if (item.size / 1024 > 100) {
+          this.bigImages.push(item)
+        } else {
+          this.imgFiles.push(item);
+        }
       }
+      if (this.imgFiles.length) {
+        for (const item of this.imgFiles) {
+          const path = `Images/${new Date().getTime()}${item.name}`;
+          const uploadTask = await this.firestorage.upload(path, item);
+          const url = await uploadTask.ref.getDownloadURL();
+          this.promoImages.push(url)
+        }
+        this.orderingProductImages()
+      }
+      this.loadingMsg = "";
+      this.imgFiles = []
     }
   }
 
-  // --------------------- remove last detail Item---------------------------
-  removeDetail(index: number) {
-    if (this.detailsArray.length > 1)
-      this.detailsArray.removeAt(index)
+  // ordering images Array
+  drop(event: CdkDragDrop<any[]>) { // note that we change the type to  any in  =>   event: CdkDragDrop<any[]>
+    // if (this.imgFiles.length && (this.controlView == 'add' || this.controlView == 'edit')) {
+    // moveItemInArray(this.imgFiles, event.previousIndex, event.currentIndex); // this line for  ordering the  images Files
+    // moveItemInArray(this.promoImages, event.previousIndex, event.currentIndex); // this line for  ordering the  promo images
+    // } else if (this.controlView == 'edit') { }
+    moveItemInArray(this.promoImages, event.previousIndex, event.currentIndex); // this line for  ordering the  promo images
+    this.orderingProductImages()
   }
-  // --------------------- remove last price Item---------------------------
-  removePrice(index: number) {
-    if (this.priceArray.length > 1)
-      this.priceArray.removeAt(index)
+
+  // ordering product images Array after darg drop ordering
+  orderingProductImages() {
+    this.imagesArray.clear()
+    for (const item of this.promoImages) {
+      let img = this.formBuilder.group({
+        img: item
+      })
+      this.imagesArray.push(img);  // always push formGroup in any formArray
+    }
   }
+
   // --------------------- Get Item data for Edit And Delete ---------------------------
   getItem(item: any) {
     this.resetData()
@@ -200,24 +192,43 @@ export class ProductComponent {
     }
   }
 
-  // ordering product images 
-  drop(event: CdkDragDrop<any[]>) { // note that we change the type to  any in  =>   event: CdkDragDrop<any[]>
-    // if (this.imgFiles.length && (this.controlView == 'add' || this.controlView == 'edit')) {
-    // moveItemInArray(this.imgFiles, event.previousIndex, event.currentIndex); // this line for  ordering the  images Files
-    // moveItemInArray(this.promoImages, event.previousIndex, event.currentIndex); // this line for  ordering the  promo images
-    // } else if (this.controlView == 'edit') { }
-    moveItemInArray(this.promoImages, event.previousIndex, event.currentIndex); // this line for  ordering the  promo images
-    this.orderingProductImages()
+  // --------------------- send Item---------------------------
+  submit() {
+    if (this.product.valid && this.checkProductFormValidation()) {
+      if (this.controlView == "add") {
+        this.dataServ.createOrder("", this.controlView, this.product.value).subscribe(() => {
+          this.resetData();
+          this.toastr.success("product uploaded successfully")
+        })
+      } else {
+        this.dataServ.getProducts(this.globalProduct.category).subscribe(data => {
+          for (const key in data) {
+            if (this.globalProduct.id == data[key].id) {
+              this.dataServ.createOrder(key, this.controlView, this.product.value).subscribe(() => {
+                this.resetData();
+              })
+              this.toastr.success("product updated successfully")
+              break;
+            }
+          }
+        })
+      }
+    } else
+      this.toastr.error("check all product data entered correctly")
   }
-  // ordering product images after darg drop ordering
-  orderingProductImages() {
-    this.imagesArray.clear()
-    for (const item of this.promoImages) {
-      let img = this.formBuilder.group({
-        img: item
-      })
-      this.imagesArray.push(img);  // always push formGroup in any formArray
+
+  // we make sure that when Edit product the priceArray && detailsArray not have any empty value
+  checkProductFormValidation(): boolean {
+    // don't worry about writing multiple return commond line  ===>>  because the function will use only one of them and skip others
+    for (const item of this.priceArray.value) {
+      if (!item.priceValue || !item.countryCurrency)
+        return false
     }
+    for (const item of this.detailsArray.value) {
+      if (!item.details)
+        return false
+    }
+    return true
   }
 
   del(index: number) {

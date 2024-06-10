@@ -30,7 +30,7 @@ export class CountriesCurrencyService {
     "فرنك الجيبوتي",
     "فرنك القمري",
     "شيلينغ الصومالي"
-  ];
+  ].sort();
 
   englishCurrencies = [
     "Saudi Riyal",
@@ -55,6 +55,6 @@ export class CountriesCurrencyService {
     "Djiboutian Franc",
     "Comorian Franc",
     "Somali Shilling"
-  ];
+  ].sort();
 
 }

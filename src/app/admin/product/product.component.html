@@ -9,9 +9,7 @@
                 show data
             </button>
             <ul class="dropdown-menu">
-                <li><button class="dropdown-item" (click)="controlView='ring'">rings</button></li>
-                <li><button class="dropdown-item" (click)="controlView='gemstone'">gymstones</button></li>
-                <li><button class="dropdown-item" (click)="controlView='rosary'">rosary </button></li>
+                <li *ngFor="let item of categories"><button class="dropdown-item" (click)="controlView=item">{{item}}</button></li>
             </ul>
         </div>
     </div>
@@ -20,22 +18,25 @@
         (ngSubmit)="submit()">
         <!-- images -->
         <div class="form-group">
+            <!-- upload input -->
             <div>
                 <label for="images" class="drop-container" id="dropcontainer">
                     <span class="drop-title">Drop files here <span class="text-info text-decoration-underline">or browse</span></span>
                     <input type="file" id="images" class="file-upload" multiple accept="image/*" (change)="uploadImg($event)" required>
                 </label>
             </div>
+            <!-- images with a big size notification -->
             <div class="alert alert-warning text-center p-1 m-1" *ngIf="bigImages.length">
                 you choose some images with a big size!,So they did't uploaded, please upload images with smaller size instead of them <br>
                 <!-- [ * <span *ngFor="let itr of bigImages"> <b  class="text-decoration-underline"> {{itr.name}} </b> * </span> ]  -->
                 <b>note </b>: max size is 100 kb per image 
             </div>
+            <!-- the loading notification -->
             <small class="loading-text" *ngIf="loadingMsg">
                 <div class="spinner-grow" role="status">
                     <span class="visually-hidden">Loading...</span>
-                  </div>loading...</small>
-            <!-- view the list of images  -->
+                  </div>uploading...</small>
+            <!-- view the list of images and ordering them -->
             <div *ngIf="!loadingMsg" cdkDropList cdkDropListOrientation="horizontal" class="example-list text-center" (cdkDropListDropped)="drop($event)">
                 <div class="example-box" cdkDrag *ngFor="let item of promoImages; let i = index">
                     <img [src]="item" alt="" class="image-product">
@@ -73,7 +74,7 @@
         </div>
         <!-- adding form price array  -->
         <div class="form-group mt-3" formArrayName="prices">
-            <label for="">Add product price</label>
+            <label for="">Add product net price</label>
             <div class="btn btn-primary add-form-item" (click)="addFormPrice()"><span>+</span></div>
             <div class="inputs-group position-relative" *ngFor="let item of priceArray?.controls; let i = index">
                 <!-- the price object  -->

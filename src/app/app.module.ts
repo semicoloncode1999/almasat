@@ -15,6 +15,7 @@ import { provideStorage, getStorage } from '@angular/fire/storage';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage' // we import it manually for uploading files
 import { AngularFireModule, FIREBASE_OPTIONS } from '@angular/fire/compat';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations' // we import it manually for uploading files
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations' /
     provideStorage(() => getStorage()),
     AngularFireModule, // we import it manually for uploading files
     AngularFireStorageModule, BrowserAnimationsModule, // we import it manually for uploading files
+    ToastrModule.forRoot()
   ],
   providers: [
     // we write it manually for uploading files
