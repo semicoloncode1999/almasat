@@ -1,1 +1,191 @@
-<p>social-links works!</p>
+<div class="col-12 position-relative">
+  <div class="accordion" id="accordionExample">
+    <!-- whatsapp -->
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button whatsapp-accordion-button whatsapp-bg" type="button" data-bs-toggle="collapse"
+          data-bs-target="#whatsapp" aria-expanded="true" aria-controls="whatsapp">
+          whatsapp
+        </button>
+      </h2>
+      <div id="whatsapp" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <form [formGroup]="whatsapp" (ngSubmit)="submitWhatsapp()">
+            <div class="form-group d-flex">
+              <span>
+                <label for="countryCode">country Code : </label>
+                <select name="countryCode" id="countryCode" class="form-select" formControlName="countryCode">
+                  <option [value]="item" *ngFor="let item of arabCountryCodes">{{item}}</option>
+                </select>
+              </span>
+              <span class="mrg-left">
+                <label for="phone">whatsapp phone : </label>
+                <input type="tel" name="phone" id="phone" class="form-control" formControlName="phone">
+              </span>
+            </div>
+            <div class="form-group">
+              <h4 for="hidden" style="margin: 3px;">hidden : </h4>
+              <label for="whatsapp_True" class="m-1">yes : </label>
+              <input type="radio" name="hidden" id="whatsapp_True" value="true" formControlName="hidden">
+              <label for="whatsapp_False" class="m-1 mrg-left">no : </label>
+              <input type="radio" name="hidden" id="whatsapp_False" value="false" formControlName="hidden">
+            </div>
+            <div class="text-center">
+              <button type="submit" class="btn whatsapp-bg">Save</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- instagram -->
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed instagram-bg" type="button" data-bs-toggle="collapse" data-bs-target="#instagram"
+          aria-expanded="false" aria-controls="instagram">
+          instagram
+        </button>
+      </h2>
+      <div id="instagram" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <form [formGroup]="instagram" (ngSubmit)="submitInstagram()">
+            <div class="form-group">
+              <label for="insta">instagram profile link : </label>
+              <input type="url" name="insta" id="insta" class="form-control" formControlName="url">
+            </div>
+            <div class="form-group">
+              <h4 for="hidden" style="margin: 3px;">hidden : </h4>
+              <label for="instagram_True" class="m-1">yes : </label>
+              <input type="radio" name="hidden" id="instagram_True" value="true" formControlName="hidden">
+              <label for="instagram_False" class="m-1 mrg-left">no : </label>
+              <input type="radio" name="hidden" id="instagram_False" value="false" formControlName="hidden">
+            </div>
+            <div class="text-center">
+              <button type="submit" class="btn instagram-bg">Save</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- snapchat -->
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed snapchat-bg" type="button" data-bs-toggle="collapse"
+          data-bs-target="#snapchat" aria-expanded="false" aria-controls="snapchat">
+          snapchat
+        </button>
+      </h2>
+      <div id="snapchat" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <form [formGroup]="snapchat" (ngSubmit)="submitSnapchat()">
+            <div class="form-group">
+              <label for="snap">snapchat profile link : </label>
+              <input type="url" name="snap" id="snap" class="form-control" formControlName="url">
+            </div>
+            <div class="form-group">
+              <h4 for="hidden" style="margin: 3px;">hidden : </h4>
+              <label for="snapchat_True" class="m-1">yes : </label>
+              <input type="radio" name="hidden" id="snapchat_True" value="true" formControlName="hidden">
+              <label for="snapchat_False" class="m-1 mrg-left">no : </label>
+              <input type="radio" name="hidden" id="snapchat_False" value="false" formControlName="hidden">
+            </div>
+            <div class="text-center">
+              <button type="submit" class="btn snapchat-bg">Save</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- facebook -->
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed facebook-bg" type="button" data-bs-toggle="collapse"
+          data-bs-target="#facebook" aria-expanded="false" aria-controls="facebook">
+          facebook
+        </button>
+      </h2>
+      <div id="facebook" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <form [formGroup]="facebook" (ngSubmit)="submitFacebook()">
+            <div class="form-group">
+              <label for="face">facebook profile link : </label>
+              <input type="url" name="face" id="face" class="form-control" formControlName="url">
+            </div>
+            <div class="form-group">
+              <h4 for="hidden" style="margin: 3px;">hidden : </h4>
+              <label for="facebook_True" class="m-1">yes : </label>
+              <input type="radio" name="hidden" id="facebook_True" value="true" formControlName="hidden">
+              <label for="facebook_False" class="m-1 mrg-left">no : </label>
+              <input type="radio" name="hidden" id="facebook_False" value="false" formControlName="hidden">
+            </div>
+            <div class="text-center">
+              <button type="submit" class="btn facebook-bg">Save</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- tiktok -->
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed tiktok-bg" type="button" data-bs-toggle="collapse"
+          data-bs-target="#tiktok" aria-expanded="false" aria-controls="tiktok">
+          tiktok
+        </button>
+      </h2>
+      <div id="tiktok" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <form [formGroup]="tiktok" (ngSubmit)="submitTiktok()">
+            <div class="form-group">
+              <label for="tik">tiktok profile link : </label>
+              <input type="url" name="tik" id="tik" class="form-control" formControlName="url">
+            </div>
+            <div class="form-group">
+              <h4 for="hidden" style="margin: 3px;">hidden : </h4>
+              <label for="tiktok_True" class="m-1">yes : </label>
+              <input type="radio" name="hidden" id="tiktok_True" value="true" formControlName="hidden">
+              <label for="tiktok_False" class="m-1 mrg-left">no : </label>
+              <input type="radio" name="hidden" id="tiktok_False" value="false" formControlName="hidden">
+            </div>
+            <div class="text-center">
+              <button type="submit" class="btn tiktok-bg">Save</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- twitterX -->
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed twitterX-bg" type="button" data-bs-toggle="collapse"
+          data-bs-target="#twitterX" aria-expanded="false" aria-controls="twitterX">
+          twitterX
+        </button>
+      </h2>
+      <div id="twitterX" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <form [formGroup]="twitterX" (ngSubmit)="submitTwitterX()">
+            <div class="form-group">
+              <label for="twitter">twitterX profile link : </label>
+              <input type="url" name="twitter" id="twitter" class="form-control" formControlName="url">
+            </div>
+            <div class="form-group">
+              <h4 for="hidden" style="margin: 3px;">hidden : </h4>
+              <label for="twitterX_True" class="m-1">yes : </label>
+              <input type="radio" name="hidden" id="twitterX_True" value="true" formControlName="hidden">
+              <label for="twitterX_False" class="m-1 mrg-left">no : </label>
+              <input type="radio" name="hidden" id="twitterX_False" value="false" formControlName="hidden">
+            </div>
+            <div class="text-center">
+              <button type="submit" class="btn twitterX-bg">Save</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
