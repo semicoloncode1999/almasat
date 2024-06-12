@@ -9,7 +9,7 @@ import { Observable, retry } from 'rxjs';
 })
 export class DataService {
 
-  productCategories: string[] = ["ring", "gemstone", "rosary", "other"];
+  productCategories: string[] = ["ring", "gemstone", "rosary","necklace","Bracelet", "other"];
 
   url: string = environment.firebase.databaseURL;
 
