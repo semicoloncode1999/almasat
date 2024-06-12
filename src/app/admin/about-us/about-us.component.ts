@@ -98,6 +98,8 @@ export class AboutUsComponent implements OnDestroy {
       }
     }))
     if (this.controlView == 'edit') {
+      this.resetData();
+      this.controlView = 'edit'
       this.detailsArray.removeAt(0)
       this.aboutUs.patchValue({
         id: item.id,

@@ -68,6 +68,7 @@
   <div class="pre-delete" *ngIf="controlView=='delete' || controlView=='showItem'">
       <div class="text-center card p-4">
         <h1 class="p-2 text-info"> ** {{globalObject.title}} ** </h1>
+        <h4 class="p-2"> <span style="font-weight: bold;">id :</span>{{globalObject.id}} </h4>
         <h4 class="p-2">
           <ng-container *ngFor="let item of globalObject.details; let i=index">
             <p> <span style="font-weight: bold;">details <span *ngIf="globalObject.details.length > 1">{{i+1}}</span></span> : {{item.details}}</p>
