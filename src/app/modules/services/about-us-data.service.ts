@@ -35,6 +35,7 @@ export class AboutUsDataService {
 
 
   deleteItem(key: string) {
+    if(key)
     this.http.delete(`${this.url}/aboutUs/${key}.json`).subscribe(() => {
       location.reload();
     })

@@ -35,7 +35,8 @@ export class YoutubeDataService {
 
 
   deleteItem(key: string) {
-    this.http.delete(`${this.url}/youtube/${key}.json`).subscribe(() => {
+    if (key)
+      this.http.delete(`${this.url}/youtube/${key}.json`).subscribe(() => {
       location.reload();
     })
   }

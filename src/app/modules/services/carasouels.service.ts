@@ -40,7 +40,10 @@ export class CarasouelsService {
   create(key: string, data: any): Observable<carasouel> {
     // note that Error will be occur when you forget to write  .json at the end of each firebase position url in each http request like this return this.http.post<carasouel>(`... url .json`, data)
     // the Error in browser console ==>  Access to XMLHttpRequest at 'https://ecommerce-4cbbb-default-rtdb.firebaseio.com/(position)' from origin 'http://localhost:4200' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: It does not have HTTP ok status.
-    return this.http.put<carasouel>(`${this.url}/carasouels/${key}.json`, data)//function will use only this return depend on IF choice & skip others
+    if (key)
+      return this.http.put<carasouel>(`${this.url}/carasouels/${key}.json`, data)//function will use only this return depend on IF choice & skip others
+    else
+      return this.http.put<carasouel>(`${this.url}/error.json`, data)
   }
 
 
