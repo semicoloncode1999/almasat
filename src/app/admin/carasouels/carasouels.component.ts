@@ -16,20 +16,16 @@ import { UploadImagePromoService } from 'src/app/modules/services/upload-image-p
 })
 export class CarasouelsComponent implements OnDestroy {
 
-  controlView: string = "add";
+  controlView: string = "data";
   promoImages: string[] = [];
   carasouels: carasouel[] = [];
   categories: string[];
   globalCarasouelObject!: carasouel;
-  globalCarasouelObjectKey!: string ;
+  globalCarasouelObjectKey!: string;
   loadingMsg: string = "";
-  subscribtions: Subscription[]=[];
+  subscribtions: Subscription[] = [];
 
-  constructor(private formBuilder: FormBuilder, private productServ: DataService, private uploadServ: UploadImagePromoService
-    , private toastr: ToastrService, private firestorage: AngularFireStorage, private carasouelServ: CarasouelsService) {
-    this.categories = productServ.productCategories;
-  }
-
+  
   carasouel = this.formBuilder.group({
     id: [new Date().getTime()],
     images: this.formBuilder.array([], Validators.minLength(1)),
@@ -43,6 +39,12 @@ export class CarasouelsComponent implements OnDestroy {
     return this.carasouel.get("images") as FormArray;
   }
 
+  constructor(private formBuilder: FormBuilder, private productServ: DataService, private uploadServ: UploadImagePromoService
+    , private toastr: ToastrService, private firestorage: AngularFireStorage, private carasouelServ: CarasouelsService) {
+    this.categories = productServ.productCategories;
+    this.getCarasouelCategory('')
+  }
+
   // ------------------------------- Reset Data ------------------------------
   resetData() {
     this.carasouel.patchValue({
@@ -53,6 +55,7 @@ export class CarasouelsComponent implements OnDestroy {
     this.imagesArray.clear() // reset imagesArray in form from any data
     this.promoImages = [];
     this.uploadServ.imagesArray = [] // at upload service
+    this.carasouels=[]
   }
 
   // --------------------- upload images Array on server ---------------------
@@ -84,38 +87,45 @@ export class CarasouelsComponent implements OnDestroy {
   }
 
   // ----------------------------  get Carasouel Category ----------------------------
-  getCarasouelCategory(event:any) {
+  getCarasouelCategory(event: any) {
     this.resetData()
-    this.carasouelServ.getCarasouels().subscribe({
+    this.subscribtions.push(this.carasouelServ.getCarasouels().subscribe({
       next: data => {
         for (const key in data) {
-          if (data[key].page == event.target.value){
-              this.globalCarasouelObject=data[key];
-              this.globalCarasouelObjectKey=key
+          if (this.controlView == "edit") {
+            if (data[key].page == event.target.value) {
+              this.globalCarasouelObject = data[key];
+              this.globalCarasouelObjectKey = key
               break;
             }
+          } else {
+            this.carasouels.push(data[key])
+          }
         }
-      },complete:()=>{
-        this.carasouel.patchValue({
-          id: this.globalCarasouelObject.id,
-          page: this.globalCarasouelObject.page,
-        })
-        for (const iterator of this.globalCarasouelObject.images) {
-          this.promoImages.push(iterator.img);
+      }, complete: () => {
+        if (this.controlView == "edit") {
+          this.carasouel.patchValue({
+            id: this.globalCarasouelObject.id,
+            page: this.globalCarasouelObject.page,
+          })
+          for (const iterator of this.globalCarasouelObject.images) {
+            this.promoImages.push(iterator.img);
+          }
+          this.uploadServ.imagesArray = this.promoImages
         }
-        this.uploadServ.imagesArray = this.promoImages
       }
-    })
-
+    }))
   }
 
   // ---------------------------- submit ----------------------------
   submit() {
     if (this.carasouel.valid) {
-      this.carasouelServ.create(this.globalCarasouelObjectKey, this.carasouel.value).subscribe(() => {
-        this.toastr.success("carasouel uploaded successfully")
+      this.subscribtions.push(this.carasouelServ.create(this.globalCarasouelObjectKey, this.carasouel.value).subscribe(() => {
         this.resetData()
-      })
+        this.toastr.success("carasouel uploaded successfully")
+        this.getCarasouelCategory('');
+        this.controlView='data'
+      }))
     } else
       this.toastr.error("complete all carasouel data")
   }
@@ -127,7 +137,6 @@ export class CarasouelsComponent implements OnDestroy {
     this.promoImages.splice(index, 1);
     this.uploadServ.imagesArray = this.promoImages
     this.orderingProductImages();
-    this.submit()
   }
 
   ngOnDestroy(): void {

@@ -8,14 +8,15 @@ import { UploadImagePromoService } from 'src/app/modules/services/upload-image-p
 @Component({
   selector: 'app-view-edit-prods',
   templateUrl: './view-edit-prods.component.html',
-  styleUrls: ['./view-edit-prods.component.scss', '../../../modules/css-styles/admin.form.product.styles.css']
+  styleUrls: ['./view-edit-prods.component.scss', '../../../modules/css-styles/admin.form.product.styles.css', '../../../modules/css-styles/admin.styles.css']
 })
 export class ViewEditProdsComponent implements OnChanges {
-  controlView: string = "add";
+  controlView: string = "show";
   promoImages: any[] = [];
   products: any[] = [];
   categories: string[] = ["ring", "gemstone", "rosary", "other"];
   imgFiles: any;
+  globalItem!:product;
 
   @Input() dataInputView: string = "";
   @Output() sendProduct: EventEmitter<product> = new EventEmitter();
@@ -43,9 +44,13 @@ export class ViewEditProdsComponent implements OnChanges {
     this.sendProduct.emit(item)
   }
 
-  deleteItem(item: product) {
-    let images: any = item.images
-    this.dataServ.deleteItem(item)
+  showItem(item: product){
+    this.globalItem=item;
+  }
+
+  deleteItem() {
+    let images: any = this.globalItem.images
+    this.dataServ.deleteItem(this.globalItem)
     for (const tep of images) {
       this.firestorage.refFromURL(tep.img).delete()
     }

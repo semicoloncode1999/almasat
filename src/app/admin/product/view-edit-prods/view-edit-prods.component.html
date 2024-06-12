@@ -1,23 +1,58 @@
-<table class="table text-center" *ngIf="controlView">
-    <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">photo</th>
-            <th scope="col">title</th>
-            <th scope="col">category</th>
-            <th scope="col"></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let item of products; let i=index">
-            <th scope="row">{{i+1}}</th>
-            <td><img [src]="item.images['0'].img" class="image-product" class="image-product" alt=""></td>
-            <td>{{item.title}}</td>
-            <td>{{item.category}}</td>
-            <td>
-                <button class="btn btn-warning" (click)="getItem(item)"><i class="bi bi-pencil-square"></i></button>
-                <button class="btn btn-danger" (click)="deleteItem(item)"><i class="bi bi-trash3"></i></button>
-            </td>
-        </tr>
-    </tbody>
-</table>
+<div class="col-12 position-relative">
+    <table class="table text-center" *ngIf="controlView!='delete' && controlView!='showItem'">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">photo</th>
+                <th scope="col">title</th>
+                <th scope="col">category</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of products; let i=index">
+                <th scope="row">{{i+1}}</th>
+                <td><img [src]="item.images['0'].img" class="image-product" alt=""></td>
+                <td>{{item.title}}</td>
+                <td>{{item.category}}</td>
+                <td>
+                    <button class="btn btn-warning" (click)="getItem(item)"><i class="bi bi-pencil-square"></i></button>
+                    <button class="btn btn-danger" (click)="showItem(item);controlView='delete'"><i
+                            class="bi bi-trash3"></i></button>
+                    <button class="btn btn-primary" (click)="showItem(item);controlView='showItem';"><i
+                            class="bi bi-eye-fill"></i></button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- ---------------------------- delete ---------------------------- -->
+    <div class="pre-delete" *ngIf="controlView=='delete' || controlView=='showItem'">
+        <div class="col-12 card p-3">
+            <div class="d-flex flex-wrap">
+                <img [src]="item.img" alt="" class="image-product" *ngFor="let item of globalItem.images">
+            </div>
+            <div class="product-details">
+                <h1 class="text-info"><b class="text-capitalize">title</b> : {{globalItem.title}}</h1>
+                <h4><b class="text-capitalize">id</b> : {{globalItem.id}}</h4>
+                <h4><b class="text-capitalize">category</b> : {{globalItem.category}}</h4>
+                <h4 *ngFor="let item of globalItem.details; let i=index">
+                     <b class="text-capitalize">  details <span *ngIf="globalItem.details.length > 1">{{i+1}}</span> </b>: {{item.details}}
+                </h4>
+                <h4 *ngFor="let item of globalItem.prices; let i=index">
+                    <span style="font-weight: bold;">price</span> 
+                    <span style="font-weight: bold;" *ngIf="globalItem.prices.length > 1"> {{i+1}} </span> :  {{item.priceValue}} {{item.countryCurrency}}
+                </h4>
+                <h4><b class="text-capitalize">discount</b> : {{globalItem.discount}}</h4>
+                <h4><b class="text-capitalize">product Rate</b> : {{globalItem.productRate}}</h4>
+                <h4><b class="text-capitalize">available</b> : {{globalItem.available}}</h4>
+                <h4><b class="text-capitalize">show On Home</b> : {{globalItem.showOnHome}}</h4>
+                <div class="text-center">
+                    <button class="btn btn-danger m-2" (click)="deleteItem()" *ngIf="controlView=='delete'">delete </button>
+                </div>
+                <button class="btn btn-close m-2 position-absolute top-right-0" (click)="controlView='show'"></button>
+            </div>
+        </div>
+
+    </div>
+</div>

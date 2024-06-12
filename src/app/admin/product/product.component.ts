@@ -1,20 +1,22 @@
 import { CountriesCurrencyService } from './../../modules/services/countries-currency.service';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Validators, FormBuilder, FormArray } from '@angular/forms';
 import { DataService } from 'src/app/modules/services/data.service';
 import { UploadImagePromoService } from 'src/app/modules/services/upload-image-promo.service';
 import { product } from 'src/app/modules/interfaces/product.interface';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.scss', '../../modules/css-styles/admin.form.product.styles.css', '../../modules/css-styles/change-position.drag-drop.css']
 })
-export class ProductComponent {
+export class ProductComponent implements OnDestroy {
   controlView: string = "add";
+  // imageFromLink:string=""
   promoImages: string[] = [];
   bigImages: any[] = [];
   categories: string[];
@@ -22,7 +24,9 @@ export class ProductComponent {
   globalProduct: any;
   globalProductKey: string = "";
   loadingMsg: string = "";
-  countries: string[] = []
+  countries: string[] = [];
+  subscribtions: Subscription[] = []
+
 
   product = this.formBuilder.group({
     id: [new Date().getTime()],
@@ -31,7 +35,7 @@ export class ProductComponent {
     category: ["", Validators.required],
     details: this.formBuilder.array([], Validators.minLength(1)),
     prices: this.formBuilder.array([], Validators.minLength(1)),
-    discount: [0, Validators.required],
+    discount: [0, [Validators.required,Validators.max(99),Validators.min(0)]],
     productRate: ["", Validators.required],
     showOnHome: ["false", Validators.required],
     available: ["true", Validators.required],
@@ -129,6 +133,11 @@ export class ProductComponent {
       this.imgFiles = []
     }
   }
+  
+  // addImageLink(){
+  //   this.promoImages.push(this.imageFromLink);
+  //   this.orderingProductImages()
+  // }
 
   // ordering images Array
   drop(event: CdkDragDrop<any[]>) { // note that we change the type to  any in  =>   event: CdkDragDrop<any[]>
@@ -196,22 +205,22 @@ export class ProductComponent {
   submit() {
     if (this.product.valid && this.checkProductFormValidation()) {
       if (this.controlView == "add") {
-        this.dataServ.createOrder("", this.controlView, this.product.value).subscribe(() => {
+        this.subscribtions.push(this.dataServ.createOrder("", this.controlView, this.product.value).subscribe(() => {
           this.resetData();
           this.toastr.success("product uploaded successfully")
-        })
+        }))
       } else {
-        this.dataServ.getProducts(this.globalProduct.category).subscribe(data => {
+        this.subscribtions.push(this.dataServ.getProducts(this.globalProduct.category).subscribe(data => {
           for (const key in data) {
             if (this.globalProduct.id == data[key].id) {
-              this.dataServ.createOrder(key, this.controlView, this.product.value).subscribe(() => {
+              this.subscribtions.push(this.dataServ.createOrder(key, this.controlView, this.product.value).subscribe(() => {
                 this.resetData();
-              })
+              }))
               this.toastr.success("product updated successfully")
               break;
             }
           }
-        })
+        }))
       }
     } else
       this.toastr.error("check all product data entered correctly")
@@ -237,5 +246,10 @@ export class ProductComponent {
     this.orderingProductImages();
   }
 
+  ngOnDestroy(): void {
+    for (const iterator of this.subscribtions) {
+      iterator.unsubscribe()
+    }
+  }
 }
 

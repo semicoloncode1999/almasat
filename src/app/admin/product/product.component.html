@@ -18,6 +18,26 @@
         (ngSubmit)="submit()">
         <!-- images -->
         <div class="form-group">
+            <!-- add image from link -->
+            <!-- <div class="accordion-item p-3">
+                <h2 class="accordion-header">
+                <button class="accordion-button collapsed text-capitalize text-decoration-underline" type="button" data-bs-toggle="collapse" data-bs-target="#add-image-link"
+                    aria-expanded="false" aria-controls="add-image-link">
+                    add image from link
+                </button>
+                </h2>
+                <div id="add-image-link" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <div class="form-group">
+                        <label for="imageURL">image link : </label>
+                        <input type="url" name="imageURL" id="imageURL" class="form-control" #imageURL (input)="imageLink=imageFromLink.value">
+                    </div>
+                    <div class="text-center">
+                        <button type="button" class="btn btn-dark" (click)="addImageLink()">Save</button>
+                    </div>
+                </div>
+                </div>
+            </div> -->
             <!-- upload input -->
             <div>
                 <label for="images" class="drop-container" id="dropcontainer">
@@ -47,7 +67,8 @@
         <!-- choose category -->
         <div class="form-group">
             <label for="category">select category</label>
-            <select name="category" id="category" class="form-select" formControlName="category">
+            <input type="text" class="form-control" formControlName="category" [readOnly]="controlView=='edit'" *ngIf="controlView == 'edit'">
+            <select name="category" id="category" class="form-select" formControlName="category" *ngIf="controlView == 'add'">
                 <option [value]="item" *ngFor="let item of categories">{{item}}</option>
             </select>
         </div>
@@ -58,7 +79,7 @@
         </div>
         <!-- adding form details array  -->
         <div class="form-group" formArrayName="details">
-            <label for="">Add product details</label>
+            <label>Add product details</label>
             <span class="btn btn-primary add-form-item" (click)="addFormDetails()"><span>+</span></span>
             <!-- fristly we call form array name -->
             <!--  then we loop on the inputs array by get function   =>  arrayname?.controls  &  the index -->
@@ -74,7 +95,7 @@
         </div>
         <!-- adding form price array  -->
         <div class="form-group mt-3" formArrayName="prices">
-            <label for="">Add product net price</label>
+            <label>Add product net price</label>
             <div class="btn btn-primary add-form-item" (click)="addFormPrice()"><span>+</span></div>
             <div class="inputs-group position-relative" *ngFor="let item of priceArray?.controls; let i = index">
                 <!-- the price object  -->
@@ -108,7 +129,7 @@
         </div>
         <!-- Show it on the home page  -->
         <div class="form-group">
-            <label for="">Show it on the home page : </label> <br>
+            <label>Show it on the home page : </label> <br>
             <span>
                 <label for="showOnHomeYes" class="m-1 fs-6">yes</label>
                 <input type="radio" name="showOnHome" id="showOnHomeYes" formControlName="showOnHome" value="true" checked>
@@ -120,7 +141,7 @@
         </div>
         <!-- available  -->
         <div class="form-group">
-            <label for="">available</label> <br>
+            <label>available</label> <br>
             <span>
                 <label for="categoryYes" class="m-1 fs-6">yes</label>
                 <input type="radio" name="available" id="categoryYes" formControlName="available" value="true" checked>

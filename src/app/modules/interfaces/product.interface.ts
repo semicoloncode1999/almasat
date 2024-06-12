@@ -1,6 +1,6 @@
 export interface product{
     id:number
-    images: any[],
+    images: images[],
     title:string,
     category:string,
     details:details[],
@@ -18,4 +18,8 @@ export interface details{
 export interface prices{
     priceValue:string,
     countryCurrency:string
+}
+
+export interface images{
+    img:string
 }

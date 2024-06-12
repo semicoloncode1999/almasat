@@ -14,9 +14,9 @@ td .btn {
 
 /* ------------------------------- upload image using drag drop ------------------------------- */
 .image-product {
-  width: 115px !important;
-  height: 110px !important;
-  border-radius: 7px;
+  width: 90px !important;
+  height: 92px !important;
+  border-radius: 11px;
   margin: 5px;
   padding: 4px;
 }

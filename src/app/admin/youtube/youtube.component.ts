@@ -8,7 +8,8 @@ import { YoutubeDataService } from 'src/app/modules/services/youtube-data.servic
 @Component({
   selector: 'app-youtube',
   templateUrl: './youtube.component.html',
-  styleUrls: ['./youtube.component.scss', '../../modules/css-styles/admin.form.product.styles.css', '../../modules/css-styles/change-position.drag-drop.css']
+  styleUrls: ['./youtube.component.scss', '../../modules/css-styles/admin.form.product.styles.css',
+    '../../modules/css-styles/change-position.drag-drop.css', '../../modules/css-styles/admin.styles.css']
 })
 export class YoutubeComponent implements OnDestroy {
 
@@ -70,12 +71,12 @@ export class YoutubeComponent implements OnDestroy {
     if (this.youtube.valid) {
       if (this.controlView == "add")
         this.youtube.patchValue({ id: new Date().getTime() })
-      this.youtubeServ.create(this.globalObjectKey, this.controlView, this.youtube.value).subscribe(() => {
+      this.subscribtions.push(this.youtubeServ.create(this.globalObjectKey, this.controlView, this.youtube.value).subscribe(() => {
         this.toastr.success("youtube added successfully")
         // this.getYoutubeVideos();
         // this.controlView = "show"
         location.reload()
-      })
+      }))
     } else
       this.toastr.error("complete all youtube data")
   }
@@ -83,7 +84,7 @@ export class YoutubeComponent implements OnDestroy {
   // ---------------------------- get item ----------------------------
   getItem(item: youtube) {
     this.globalObject = item;
-    this.youtubeServ.getyoutubes().subscribe({
+    this.subscribtions.push(this.youtubeServ.getyoutubes().subscribe({
       next: data => {
         for (const key in data) {
           if (data[key].id == item.id) {
@@ -92,7 +93,7 @@ export class YoutubeComponent implements OnDestroy {
           }
         }
       }
-    })
+    }))
     if (this.controlView == 'edit') {
       this.youtube.patchValue({
         id: item.id,

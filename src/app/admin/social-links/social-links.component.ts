@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
 import { AboutUsDataService } from 'src/app/modules/services/about-us-data.service';
 import { CountryCodesService } from 'src/app/modules/services/country-codes.service';
 import { SocialMediaService } from 'src/app/modules/services/social-media.service';
@@ -10,9 +11,10 @@ import { SocialMediaService } from 'src/app/modules/services/social-media.servic
   templateUrl: './social-links.component.html',
   styleUrls: ['./social-links.component.scss', '../../modules/css-styles/admin.form.product.styles.css', '../../modules/css-styles/change-position.drag-drop.css']
 })
-export class SocialLinksComponent implements OnInit {
+export class SocialLinksComponent implements OnInit , OnDestroy {
 
   arabCountryCodes: string[] = this.arabCountryCodesServ.arabCountryCodes;
+  subscribtions: Subscription[] = []
 
   whatsapp = this.formBuilder.group({
     // id: [new Date().getTime()],
@@ -55,7 +57,7 @@ export class SocialLinksComponent implements OnInit {
     private arabCountryCodesServ: CountryCodesService, private socialServ: SocialMediaService) { }
 
   ngOnInit(): void {
-    this.socialServ.getSocialLinks().subscribe(data => {
+    this.subscribtions.push(this.socialServ.getSocialLinks().subscribe(data => {
 
       this.whatsapp.patchValue({
         phone: data.whatsapp.phone,
@@ -87,9 +89,7 @@ export class SocialLinksComponent implements OnInit {
         hidden: data.twitterX.hidden,
         url: data.twitterX.url,
       })
-
-
-    })
+    }))
   }
 
   submitWhatsapp() {
@@ -107,7 +107,7 @@ export class SocialLinksComponent implements OnInit {
         this.toastr.success("instagram link added")
       })
       else
-      this.toastr.error("please , add a valid link")
+      this.toastr.error("please , add a valid instagram link","data incompleted!")
   }
 
   submitSnapchat() {
@@ -116,7 +116,7 @@ export class SocialLinksComponent implements OnInit {
         this.toastr.success("snapchat link added")
       })
       else
-      this.toastr.error("please , add a valid link")
+      this.toastr.error("please , add a valid snapchat link","data incompleted!")
   }
 
   submitFacebook() {
@@ -125,7 +125,7 @@ export class SocialLinksComponent implements OnInit {
         this.toastr.success("facebook link added")
       })
       else
-      this.toastr.error("please , add a valid link")
+      this.toastr.error("please , add a valid facebook link","data incompleted!")
   }
 
   submitTiktok() {
@@ -134,7 +134,7 @@ export class SocialLinksComponent implements OnInit {
         this.toastr.success("tiktok link added")
       })
       else
-      this.toastr.error("please , add a valid link")
+      this.toastr.error("please , add a valid tiktok link","data incompleted!")
   }
 
   submitTwitterX() {
@@ -143,7 +143,12 @@ export class SocialLinksComponent implements OnInit {
         this.toastr.success("twitterX link added")
       })
     else
-      this.toastr.error("please , add a valid link")
+      this.toastr.error("please , add a valid twitterX link","data incompleted!")
   }
 
+  ngOnDestroy(): void {
+    for (const iterator of this.subscribtions) {
+      iterator.unsubscribe()
+    }
+  }
 }

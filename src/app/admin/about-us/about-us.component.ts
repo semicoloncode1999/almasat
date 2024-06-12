@@ -10,7 +10,8 @@ import { YoutubeDataService } from 'src/app/modules/services/youtube-data.servic
 @Component({
   selector: 'app-about-us',
   templateUrl: './about-us.component.html',
-  styleUrls: ['./about-us.component.scss', '../../modules/css-styles/admin.form.product.styles.css', '../../modules/css-styles/change-position.drag-drop.css']
+  styleUrls: ['./about-us.component.scss', '../../modules/css-styles/admin.form.product.styles.css',
+    '../../modules/css-styles/change-position.drag-drop.css', '../../modules/css-styles/admin.styles.css']
 })
 export class AboutUsComponent implements OnDestroy {
 
@@ -77,11 +78,11 @@ export class AboutUsComponent implements OnDestroy {
     if (this.aboutUs.valid) {
       if (this.controlView == "add")
         this.aboutUs.patchValue({ id: new Date().getTime() })
-      this.aboutUsServ.create(this.globalObjectKey, this.controlView, this.aboutUs.value).subscribe(() => {
+      this.subscribtions.push(this.aboutUsServ.create(this.globalObjectKey, this.controlView, this.aboutUs.value).subscribe(() => {
         this.toastr.success("youtube added successfully")
         this.getData();
-        this.controlView="show"
-      })
+        this.controlView = "show"
+      }))
     } else
       this.toastr.error("complete all youtube data")
   }
@@ -89,13 +90,13 @@ export class AboutUsComponent implements OnDestroy {
   // ---------------------------- get item ----------------------------
   getItem(item: aboutUs) {
     this.globalObject = item;
-    this.aboutUsServ.getaboutUs().subscribe({
+    this.subscribtions.push(this.aboutUsServ.getaboutUs().subscribe({
       next: data => {
         for (const key in data) {
           if (data[key].id == item.id) { this.globalObjectKey = key; break }
         }
       }
-    })
+    }))
     if (this.controlView == 'edit') {
       this.detailsArray.removeAt(0)
       this.aboutUs.patchValue({
@@ -115,7 +116,6 @@ export class AboutUsComponent implements OnDestroy {
   deleteItem() {
     this.aboutUsServ.deleteItem(this.globalObjectKey)
   }
-
 
   ngOnDestroy(): void {
     for (const iterator of this.subscribtions) {

@@ -66,17 +66,17 @@
 
   <!-- ---------------------------- delete ---------------------------- -->
   <div class="pre-delete" *ngIf="controlView=='delete' || controlView=='showItem'">
-    <div>
-      <div class="text-center">
-        <h1 class="p-2 text-info">{{globalObject.title}}</h1>
+      <div class="text-center card p-4">
+        <h1 class="p-2 text-info"> ** {{globalObject.title}} ** </h1>
         <h4 class="p-2">
-          <ng-container *ngFor="let item of globalObject.details">
-            <p>{{item.details}}</p>
+          <ng-container *ngFor="let item of globalObject.details; let i=index">
+            <p> <span style="font-weight: bold;">details <span *ngIf="globalObject.details.length > 1">{{i+1}}</span></span> : {{item.details}}</p>
           </ng-container>
         </h4>
-        <p class="btn btn-danger m-2" (click)="deleteItem()" *ngIf="controlView=='delete'">delete</p>
-        <p class="btn btn-secondary m-2" (click)="controlView='show'">cancel</p>
+        <div class="text-center">
+          <p class="btn btn-danger m-2" (click)="deleteItem()" *ngIf="controlView=='delete'">delete</p>
+          <p class="btn btn-secondary m-2" (click)="controlView='show'">cancel</p>
+        </div>
       </div>
     </div>
-  </div>
 </div>
