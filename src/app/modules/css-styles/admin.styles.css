@@ -23,3 +23,7 @@ td iframe {
     height: 183px;
     width: 250px;
 }
+.pagination-class{
+    width: 98% !important;
+    position: absolute;
+}

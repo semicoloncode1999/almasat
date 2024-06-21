@@ -24,6 +24,8 @@ export class YoutubeComponent implements OnDestroy {
     // details:["",Validators.required],
     url: ["", Validators.required],
   })
+  paginationSize: number = 25;
+  paginationCurrentPage: number = 1;
 
   get videoLink() {
     return this.youtube.get("url")?.value

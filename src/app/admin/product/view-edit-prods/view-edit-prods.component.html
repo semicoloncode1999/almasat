@@ -10,7 +10,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let item of products; let i=index">
+            <tr *ngFor="let item of products | paginate:{itemsPerPage:paginationSize ,currentPage:paginationCurrentPage}; let i = index" class="text-center">
                 <th scope="row">{{i+1}}</th>
                 <td><img [src]="item.images['0'].img" class="image-product" alt=""></td>
                 <td>{{item.title}}</td>
@@ -23,6 +23,9 @@
                             class="bi bi-eye-fill"></i></button>
                 </td>
             </tr>
+            <div class="col-12 pagination-class">
+                <pagination-controls (pageChange)="paginationCurrentPage=$event"></pagination-controls>
+              </div>
         </tbody>
     </table>
 

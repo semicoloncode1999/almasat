@@ -25,6 +25,8 @@ export class AboutUsComponent implements OnDestroy {
     title: ["", Validators.required],
     details: this.formBuilder.array([], Validators.required),
   })
+  paginationSize: number = 50;
+  paginationCurrentPage: number = 1;
 
   constructor(private formBuilder: FormBuilder, private toastr: ToastrService, private aboutUsServ: AboutUsDataService) {
     this.addFormDetails()

@@ -1,4 +1,4 @@
-.bar{
+.bar {
     width: 250px;
     position: fixed;
     top: 0;
@@ -28,6 +28,11 @@
     overflow: auto;
 }
 
-.bi{
+.bi {
     margin-right: 10px;
+    font-size: 20px;
+}
+
+.nav-link {
+    font-size: medium;
 }

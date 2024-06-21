@@ -15,3 +15,15 @@
     margin-top: 12px;
     margin-bottom: 0px;
 }
+label{
+    position: relative;
+}
+label.important::after{
+    position: absolute;
+    top: 0;
+    right: -13px;
+    content: "*";
+    color: red;
+    font-size: 19px;
+}
+

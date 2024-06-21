@@ -5,6 +5,7 @@ import { YoutubeRoutingModule } from './youtube-routing.module';
 import { YoutubeComponent } from './youtube.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { YoutubeSafeurlPipe } from 'src/app/modules/pipes/youtube-safeurl.pipe';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { YoutubeSafeurlPipe } from 'src/app/modules/pipes/youtube-safeurl.pipe';
     YoutubeRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxPaginationModule
   ]
 })
 export class YoutubeModule { }

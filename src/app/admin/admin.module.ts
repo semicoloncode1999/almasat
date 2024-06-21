@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ViewItemsComponent } from './view-items/view-items.component';
 import { SocialLinksComponent } from './social-links/social-links.component';
 import { AboutUsComponent } from './about-us/about-us.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { AboutUsComponent } from './about-us/about-us.component';
     AdminRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxPaginationModule
   ],
   exports:[
     ViewItemsComponent

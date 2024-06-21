@@ -16,6 +16,7 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage' // we im
 import { AngularFireModule, FIREBASE_OPTIONS } from '@angular/fire/compat';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations' // we import it manually for uploading files
 import { ToastrModule } from 'ngx-toastr';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { ToastrModule } from 'ngx-toastr';
     provideStorage(() => getStorage()),
     AngularFireModule, // we import it manually for uploading files
     AngularFireStorageModule, BrowserAnimationsModule, // we import it manually for uploading files
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    NgxPaginationModule
   ],
   providers: [
     // we write it manually for uploading files

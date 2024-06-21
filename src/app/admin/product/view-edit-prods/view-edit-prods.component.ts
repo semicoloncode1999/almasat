@@ -17,7 +17,9 @@ export class ViewEditProdsComponent implements OnChanges {
   categories: string[] = ["ring", "gemstone", "rosary", "other"];
   imgFiles: any;
   globalItem!:product;
-
+  paginationSize: number = 50;
+  paginationCurrentPage: number = 1;
+  
   @Input() dataInputView: string = "";
   @Output() sendProduct: EventEmitter<product> = new EventEmitter();
 

@@ -38,7 +38,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let item of youtubeArray; let i = index">
+      <tr *ngFor="let item of youtubeArray | paginate:{itemsPerPage:paginationSize ,currentPage:paginationCurrentPage}; let i = index" class="text-center">
         <th class="pt-5" scope="row">{{i+1}}</th>
         <td class="pt-5">{{item.title}}</td>
         <td><iframe [src]="item.url | youtubeSafeurl" frameborder="0"></iframe></td>
@@ -47,6 +47,9 @@
           <button class="btn btn-danger" (click)="getItem(item); controlView='delete'"><i class="bi bi-trash3"></i></button>
         </td>
       </tr>
+      <div class="col-12 pagination-class">
+        <pagination-controls (pageChange)="paginationCurrentPage=$event"></pagination-controls>
+      </div>
     </tbody>
   </table>
 
