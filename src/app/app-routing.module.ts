@@ -3,14 +3,14 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 
 const routes: Routes = [
-  { path: "home", redirectTo : "" , pathMatch :"full" },
+  { path: "home", redirectTo: "", pathMatch: "full" },
   { path: "", component: HomeComponent },
-  { path : "admin" , loadChildren : ()=> import("./admin/admin.module").then(m=> m.AdminModule)}
+  { path: "admin", loadChildren: () => import("./admin/admin.module").then(m => m.AdminModule) }
   // { path: "", component: HomeComponent },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

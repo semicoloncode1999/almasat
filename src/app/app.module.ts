@@ -17,6 +17,7 @@ import { AngularFireModule, FIREBASE_OPTIONS } from '@angular/fire/compat';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations' // we import it manually for uploading files
 import { ToastrModule } from 'ngx-toastr';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { HashLocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
   ],
   providers: [
     // we write it manually for uploading files
-    { provide: FIREBASE_OPTIONS, useValue: environment.firebase }
+    { provide: FIREBASE_OPTIONS, useValue: environment.firebase },
+    { provide: HashLocationStrategy, useClass: HashLocationStrategy }
   ],
   bootstrap: [AppComponent]
 })
