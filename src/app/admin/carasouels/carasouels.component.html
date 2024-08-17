@@ -1,15 +1,6 @@
 <div class="container d-flex justify-content-end buttons-group">
     <button class="btn btn-warning" (click)="controlView='edit';resetData()" [disabled]="controlView=='edit'">edit</button>
     <button class="btn btn-secondary" (click)="controlView='data';getCarasouelCategory($event)" [disabled]="controlView=='data'">show data</button>
-    <!-- <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-            show data
-        </button>
-        <ul class="dropdown-menu">
-            <li *ngFor="let item of categories"><button class="dropdown-item" (click)="getCarasouelCategory(item)">{{item}}</button>
-            </li>
-        </ul>
-    </div> -->
 </div>
 
 <div class="container" *ngIf="controlView=='edit'">
@@ -42,8 +33,6 @@
         </div>
         <!-- --- button submit --- -->
         <div class="text-center p-2">
-            <!-- <button type="submit" class="btn btn-primary" *ngIf="controlView=='add'"
-                [disabled]="!promoImages.length">Add product</button> -->
             <button type="submit" class="btn btn-warning"  [disabled]="!promoImages.length || loadingMsg">Edit product</button>
         </div>
     </form>
@@ -58,6 +47,3 @@
     </div>
 </div>
 
-<!-- <div class="col-12">
-    <app-view-items [globalObject]=""></app-view-items>
-</div> -->

@@ -18,26 +18,6 @@
         (ngSubmit)="submit()">
         <!-- images -->
         <div class="form-group">
-            <!-- add image from link -->
-            <!-- <div class="accordion-item p-3">
-                <h2 class="accordion-header">
-                <button class="accordion-button collapsed text-capitalize text-decoration-underline" type="button" data-bs-toggle="collapse" data-bs-target="#add-image-link"
-                    aria-expanded="false" aria-controls="add-image-link">
-                    add image from link
-                </button>
-                </h2>
-                <div id="add-image-link" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                    <div class="form-group">
-                        <label for="imageURL">image link : </label>
-                        <input type="url" name="imageURL" id="imageURL" class="form-control" #imageURL (input)="imageLink=imageFromLink.value">
-                    </div>
-                    <div class="text-center">
-                        <button type="button" class="btn btn-dark" (click)="addImageLink()">Save</button>
-                    </div>
-                </div>
-                </div>
-            </div> -->
             <!-- upload input -->
             <div>
                 <label for="images" class="drop-container" id="dropcontainer">
@@ -49,7 +29,7 @@
             <div class="alert alert-warning text-center p-1 m-1" *ngIf="bigImages.length">
                 you choose some images with a big size!,So they did't uploaded, please upload images with smaller size instead of them <br>
                 <!-- [ * <span *ngFor="let itr of bigImages"> <b  class="text-decoration-underline"> {{itr.name}} </b> * </span> ]  -->
-                <b>note </b>: max size is 100 kb per image 
+                <b>note </b>: max size is 1 MegaByte per image 
             </div>
             <!-- the loading notification -->
             <small class="loading-text" *ngIf="loadingMsg">

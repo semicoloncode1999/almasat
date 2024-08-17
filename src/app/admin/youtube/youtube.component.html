@@ -39,7 +39,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let item of youtubeArray | paginate:{itemsPerPage:paginationSize ,currentPage:paginationCurrentPage}; let i = index" class="text-center">
-        <th class="pt-5" scope="row">{{i+1}}</th>
+        <th class="pt-5" scope="row">{{ i+1 + (paginationSize * (paginationCurrentPage-1) )}}</th>
         <td class="pt-5">{{item.title}}</td>
         <td><iframe [src]="item.url | youtubeSafeurl" frameborder="0"></iframe></td>
         <td class="pt-5">

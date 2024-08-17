@@ -1,0 +1,17 @@
+.carousel-item img{
+    height: calc(100vh - 70px);
+}
+.slider-mt{
+    margin-top: 70px;
+}
+.product-image{
+    height: 230px;
+}
+@media screen and (max-width:700px) {
+    .slider-mt{
+        margin-top: 0px;
+    }
+    .carousel-item img {
+        height: 324px;
+    }
+}

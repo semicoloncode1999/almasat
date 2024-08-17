@@ -1,0 +1,49 @@
+
+.bg-light{
+    margin-top: 80px !important;
+    padding-bottom: 80px !important;
+    position: relative;
+    z-index: 2;
+    padding: 20px;
+    margin-bottom: 5px;
+}
+img{
+    border-radius: 5px;
+    width: 80% !important;
+    margin-left: 10%;
+}
+.title{
+    margin-top: -10px;
+    margin-bottom: 12px !important;
+}
+.direction-ltr{
+    direction: rtl;
+}
+.text-gold{
+    color: goldenrod;
+    font-weight: bold;
+}
+h3{
+    margin-bottom: 10px;
+}
+label{
+    margin: 5px;
+    font-weight: 700;
+    padding-right: 10px;
+}
+input,label{
+    width: 100%;
+    text-align: right;
+}
+.prices{
+    margin-bottom: 5px !important;
+}
+@media screen and (max-width:700px) {
+    .bg-light{
+        margin-top: 0% !important;
+    }
+    img{
+        width: 95% !important;
+        margin-left: 2.5%;
+    }
+}

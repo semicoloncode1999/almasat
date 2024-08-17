@@ -10,7 +10,7 @@ import { Observable, retry } from 'rxjs';
 export class DataService {
 
   // productCategories: string[] = ["ring", "gemstone", "rosary","necklace","Bracelet", "other"];
-  productCategories: string[] = ["ring", "gemstone", "rosary", "other"];
+  productCategories: string[] = ["ring",/* "gemstone", */"rosary", "other"];
 
   url: string = environment.firebase.databaseURL;
 
@@ -29,7 +29,8 @@ export class DataService {
         for (const key in data) {
           arr.push(data[key])
         }
-      }
+      },
+      complete:()=> arr.reverse()
     })
     return arr;
   }

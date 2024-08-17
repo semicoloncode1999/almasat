@@ -1,0 +1,10 @@
+<div class="col-12 ">
+    <div class="content bg-light p-5">
+        <div *ngFor="let item of aboutUs">
+            <p class="title fs-4 mb-2">{{item.title}}</p>
+            <div *ngFor="let tmp of item.details">
+                <h2 class="fs-5">{{tmp.details}}</h2>
+            </div>
+        </div>
+    </div>
+</div>

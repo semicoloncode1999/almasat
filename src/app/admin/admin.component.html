@@ -54,10 +54,6 @@
         <strong>profile</strong>
       </a>
       <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-        <!-- <li><a class="dropdown-item" routerLink="/admin/">New project...</a></li>
-            <li><a class="dropdown-item" routerLink="/admin/">Settings</a></li>
-            <li><a class="dropdown-item" routerLink="/admin/">Profile</a></li> -->
-        <!-- <li><hr class="dropdown-divider"></li> -->
         <li><a class="dropdown-item" routerLink="/admin/">Sign out</a></li>
       </ul>
     </div>
@@ -65,7 +61,10 @@
 </div>
 
 <div class="content">
-  <div class="container">
+  <div [hidden]="!viewChart">
+    <canvas id="myChart"> {{ chart }} </canvas>
+  </div>
+  <div class="container" [hidden]="viewChart">
     <router-outlet></router-outlet>
   </div>
 </div>

@@ -114,11 +114,12 @@ export class ProductComponent implements OnDestroy {
     if (this.loadingMsg != "uploading") {
       this.loadingMsg = "uploading";
       for (const item of event.target.files) {
-        if (item.size / 1024 > 100) {
+        // to check the image size if it more than 1 megabyte
+        if (item.size / 1024 / 1024 > 1) {
           this.bigImages.push(item)
         } else {
           this.imgFiles.push(item);
-        }
+        }        
       }
       if (this.imgFiles.length) {
         for (const item of this.imgFiles) {

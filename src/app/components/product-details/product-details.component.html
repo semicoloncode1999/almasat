@@ -1,0 +1,66 @@
+<div class="col-12 bg-light ">
+  <div class="col-sm-6 text-center">
+    <h1 class="title fs-2 mb-4">{{product.title}}</h1>
+    <h3 class="fs-4" *ngFor="let item of product.details">{{item.details}}</h3>
+    <div class="direction-ltr">
+      <h3 class="text-gold fs-4">الاسعار بناء علي عملة كل دولة</h3>
+      <h3 class="fs-5 prices" *ngFor="let item of product.prices"> {{item.priceValue}} {{item.countryCurrency}}</h3>
+    </div>
+    <a *ngIf="product" data-bs-toggle="modal" data-bs-target="#exampleModal"
+      rel="noopener noreferrer" class="btn btn-success fs-5 mb-3"><i class="bi bi-whatsapp"></i> اطلب المنتج علي واتساب </a>
+  </div>
+  <div class="col-sm-6">
+    <div id="carouselExample" class="carousel slide slider-mt" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <ng-container *ngFor="let item of product.images; let i=index">
+          <div class="carousel-item" [ngClass]="{'active':i==0}">
+            <img [src]="item.img" class="d-block w-100" alt="...">
+          </div>
+        </ng-container>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev"
+        [hidden]="product.images.length<=1">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next"
+        hidden="{{product.images.length<=1}}">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">بياناتك الشخصية </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="personData">
+          <div class="form-group">
+            <label for="">ادخل اسمك</label>
+            <input type="text" class="form-control" formControlName="name" (input)="RequestData()">
+          </div>
+          <div class="form-group">
+            <label for="">ادخل رقم الهاتف</label>
+            <input type="text" class="form-control" formControlName="phone" (input)="RequestData()">
+          </div>
+          <div class="form-group">
+            <label for="">ادخل العنوان</label>
+            <input type="text" class="form-control" formControlName="address" (input)="RequestData()">
+          </div>
+          <div class="text-center pt-4">
+            <a href="http://wa.me/{{whatsapp.countryCode}}{{whatsapp.phone}}?text={{productMsg}}" target="_blank" type="button" class="btn btn-outline-success"> افتح واتساب </a>
+          </div>
+        </form>
+      </div>
+      
+    </div>
+  </div>
+</div>

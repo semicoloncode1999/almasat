@@ -1,0 +1,14 @@
+.product{
+    min-height: 435px;
+}
+.carousel-item img{
+    height: calc(100vh - 70px);
+}
+.slider-mt{
+    margin-top: 70px;
+}
+@media screen and (max-width:700px) {
+    .slider-mt{
+        margin-top: 0px;
+    }
+}

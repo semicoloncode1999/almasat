@@ -16,6 +16,8 @@ export class AppComponent {
       if (url instanceof NavigationEnd){
         if(url.url.includes("admin")){
           this.appView = false
+        }else {
+          this.appView = true
         }
       }
     })

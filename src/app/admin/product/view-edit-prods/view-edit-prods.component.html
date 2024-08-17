@@ -11,7 +11,7 @@
         </thead>
         <tbody>
             <tr *ngFor="let item of products | paginate:{itemsPerPage:paginationSize ,currentPage:paginationCurrentPage}; let i = index" class="text-center">
-                <th scope="row">{{i+1}}</th>
+                <th scope="row">{{ i+1 + (paginationSize * (paginationCurrentPage-1) )}}</th>
                 <td><img [src]="item.images['0'].img" class="image-product" alt=""></td>
                 <td>{{item.title}}</td>
                 <td>{{item.category}}</td>
@@ -42,10 +42,12 @@
                 <h4 *ngFor="let item of globalItem.details; let i=index">
                      <b class="text-capitalize">  details <span *ngIf="globalItem.details.length > 1">{{i+1}}</span> </b>: {{item.details}}
                 </h4>
+                <hr>
                 <h4 *ngFor="let item of globalItem.prices; let i=index">
                     <span style="font-weight: bold;">price</span> 
                     <span style="font-weight: bold;" *ngIf="globalItem.prices.length > 1"> {{i+1}} </span> :  {{item.priceValue}} {{item.countryCurrency}}
                 </h4>
+                <hr>
                 <h4><b class="text-capitalize">discount</b> : {{globalItem.discount}}</h4>
                 <h4><b class="text-capitalize">product Rate</b> : {{globalItem.productRate}}</h4>
                 <h4><b class="text-capitalize">available</b> : {{globalItem.available}}</h4>

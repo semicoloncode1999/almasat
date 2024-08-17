@@ -16,10 +16,10 @@ export class ViewEditProdsComponent implements OnChanges {
   products: any[] = [];
   categories: string[] = ["ring", "gemstone", "rosary", "other"];
   imgFiles: any;
-  globalItem!:product;
-  paginationSize: number = 50;
+  globalItem!: product;
+  paginationSize: number = 20;
   paginationCurrentPage: number = 1;
-  
+
   @Input() dataInputView: string = "";
   @Output() sendProduct: EventEmitter<product> = new EventEmitter();
 
@@ -46,8 +46,8 @@ export class ViewEditProdsComponent implements OnChanges {
     this.sendProduct.emit(item)
   }
 
-  showItem(item: product){
-    this.globalItem=item;
+  showItem(item: product) {
+    this.globalItem = item;
   }
 
   deleteItem() {

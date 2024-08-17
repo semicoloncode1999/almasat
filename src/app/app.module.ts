@@ -18,6 +18,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations' /
 import { ToastrModule } from 'ngx-toastr';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { HashLocationStrategy } from '@angular/common';
+import { CarouselModule } from 'ngx-owl-carousel-o';
+import { ToNumberPipe } from './modules/pipes/to-number.pipe';
+import { RingsComponent } from './components/rings/rings.component';
+import { ResoryComponent } from './components/resory/resory.component';
+import { ProductDetailsComponent } from './components/product-details/product-details.component';
+import { AboutUsComponent } from './components/about-us/about-us.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -25,6 +32,12 @@ import { HashLocationStrategy } from '@angular/common';
     HeaderComponent,
     ZFooterComponent,
     HomeComponent,
+    ToNumberPipe,
+    RingsComponent,
+    ResoryComponent,
+    ProductDetailsComponent,
+    // YoutubeComponent,
+    AboutUsComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,7 +50,10 @@ import { HashLocationStrategy } from '@angular/common';
     AngularFireModule, // we import it manually for uploading files
     AngularFireStorageModule, BrowserAnimationsModule, // we import it manually for uploading files
     ToastrModule.forRoot(),
-    NgxPaginationModule
+    NgxPaginationModule,
+    CarouselModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     // we write it manually for uploading files

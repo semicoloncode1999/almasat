@@ -21,5 +21,6 @@ export interface prices{
 }
 
 export interface images{
+    
     img:string
 }

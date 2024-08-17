@@ -12,6 +12,17 @@
     overflow: auto;
 }
 
+.pre-delete div div img.image-product {
+    margin: 30px;
+}
+
+.pre-delete div div img.image-product:hover {
+    position: relative;
+    z-index: 2;
+    transform: scale(2.5);
+    margin: 65px;
+}
+
 iframe {
     border: 0;
     height: 275px;
@@ -23,7 +34,8 @@ td iframe {
     height: 183px;
     width: 250px;
 }
-.pagination-class{
+
+.pagination-class {
     width: 98% !important;
     position: absolute;
 }

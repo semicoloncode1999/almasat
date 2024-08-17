@@ -19,6 +19,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
     FormsModule,
     ReactiveFormsModule,
     NgxPaginationModule
+  ],
+  exports:[
+    YoutubeSafeurlPipe
   ]
 })
 export class YoutubeModule { }
