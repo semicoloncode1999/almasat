@@ -25,6 +25,7 @@ import { ResoryComponent } from './components/resory/resory.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RingsModule } from './components/rings/rings.module';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     HeaderComponent,
     ZFooterComponent,
     HomeComponent,
-    ToNumberPipe,
+    // ToNumberPipe,
     // RingsComponent,
     // ResoryComponent,
     ProductDetailsComponent,
@@ -53,7 +54,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     NgxPaginationModule,
     CarouselModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RingsModule
   ],
   providers: [
     // we write it manually for uploading files

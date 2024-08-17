@@ -16,6 +16,9 @@ import { ToNumberPipe } from 'src/app/modules/pipes/to-number.pipe';
     CommonModule,
     RingsRoutingModule,
     NgxPaginationModule
+  ],
+  exports:[
+    ToNumberPipe
   ]
 })
 export class RingsModule { }
