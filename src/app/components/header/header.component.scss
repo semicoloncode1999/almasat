@@ -154,7 +154,12 @@ a:focus {
 
 /*end header section*/
 
-
+@media screen and (min-width:700px) and (max-width:991px) {
+  .navbar-collapse{
+    background-color: #000000c4;
+    padding: 20px;
+  }
+}
 
 @media screen and (max-width:700px) {
   .header_section .container-fluid{

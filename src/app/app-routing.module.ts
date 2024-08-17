@@ -9,8 +9,8 @@ import { AboutUsComponent } from './components/about-us/about-us.component';
 const routes: Routes = [
   { path: "home", redirectTo: "", pathMatch: "full" },
   { path: "", component: HomeComponent },
-  { path: "rings", component: RingsComponent },
-  { path: "rosary", component: ResoryComponent },
+  { path: "rings", loadChildren: ()=> import("./components/rings/rings.module").then(m=>m.RingsModule) },
+  { path: "rosary", loadChildren : ()=> import("./components/resory/resory.module").then(m=>m.ResoryModule) },
   { path: "youtube",  loadChildren: () => import("./components/youtube-view/youtube-view.module").then(m => m.YoutubeViewModule) },
   { path: "about-us", component: AboutUsComponent },
   { path: "prodcut-details/:id", component: ProductDetailsComponent },
