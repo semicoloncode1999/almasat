@@ -16,7 +16,7 @@ import { RingsModule } from '../rings/rings.module';
     CommonModule,
     ResoryRoutingModule,
     NgxPaginationModule,
-    RingsModule
+    RingsModule // we import it because it declares & exports the ToNumberPipe 
   ]
 })
 export class ResoryModule { }

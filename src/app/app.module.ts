@@ -55,7 +55,7 @@ import { RingsModule } from './components/rings/rings.module';
     CarouselModule,
     FormsModule,
     ReactiveFormsModule,
-    RingsModule
+    RingsModule // we import it because it declares & exports the ToNumberPipe 
   ],
   providers: [
     // we write it manually for uploading files
