@@ -1,3 +1,12 @@
+.desktop-links-view{
+  display: flex;
+}
+.mobile-links-view{
+  display: none;
+}
+
+
+
 .navbar-collapse {
   flex-grow: 0 !important;
 }
@@ -174,5 +183,11 @@ a:focus {
     min-height: 13vh !important;
     position: relative !important;
     background-color: #202020;
+  }
+  .desktop-links-view{
+    display: none;
+  }
+  .mobile-links-view{
+    display: block;
   }
 }

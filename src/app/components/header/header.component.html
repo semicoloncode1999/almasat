@@ -17,15 +17,15 @@
   
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <div class="d-flex ml-auto flex-column flex-lg-row align-items-center">
-              <ul class="navbar-nav text-dark ">
+              <ul class="navbar-nav text-dark desktop-links-view">
                 <li class="nav-item active">
                   <a class="nav-link" href="">Home</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" routerLink="/rings">Rings </a>
+                  <a class="nav-link" routerLink="/rings"> Rings </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" routerLink="/rosary">Rosary </a>
+                  <a class="nav-link" routerLink="/rosary"> Rosary </a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" routerLink="/youtube"> youtube</a>
@@ -34,7 +34,33 @@
                   <a class="nav-link" routerLink="/about-us"> about us</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" (click)="scrollTo()">Contact us</a>
+                  <a class="nav-link" (click)="scrollTo()"> Contact us</a>
+                </li>
+              </ul>
+
+              <ul class="navbar-nav text-dark mobile-links-view">
+                <li class="nav-item active">
+                  <a class="nav-link" href="">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" routerLink="/rings"  type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> Rings </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" routerLink="/rosary"  type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> Rosary </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" routerLink="/youtube"  type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> youtube</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" routerLink="/about-us"  type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> about us</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" (click)="scrollTo()"  type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                  aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> Contact us</a>
                 </li>
               </ul>
   

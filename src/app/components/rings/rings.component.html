@@ -18,7 +18,7 @@
   </div>
 </div>
 <div class="col-12 d-flex justify-content-center flex-wrap mt-3 bottom-page">
-    <div class="col-lg-2 col-md-4 col-sm-6 p-1" *ngFor="let item of rings | paginate:{itemsPerPage:paginationSize ,currentPage:paginationCurrentPage}; let i = index">
+    <div class="col-lg-3 col-md-4 col-sm-6 p-1" *ngFor="let item of rings | paginate:{itemsPerPage:paginationSize ,currentPage:paginationCurrentPage}; let i = index">
         <div class="card mb-2">
             <div class="product card p-1">
                 <img [src]="item.images[0].img" alt="" class="product-image w-100">

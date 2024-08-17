@@ -14,7 +14,7 @@ import { CarasouelsService } from 'src/app/modules/services/carasouels.service';
 })
 export class RingsComponent implements OnInit, OnDestroy {
 
-  paginationSize: number = 24;
+  paginationSize: number = 12;
   paginationCurrentPage: number = 1;
   rings: product[] = []
   Carasouels: carasouel[] = []

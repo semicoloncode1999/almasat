@@ -15,7 +15,7 @@ import { DataService } from 'src/app/modules/services/data.service';
 export class ResoryComponent implements OnInit, OnDestroy {
 
 
-  paginationSize: number = 24;
+  paginationSize: number = 12;
   paginationCurrentPage: number = 1;
   rosarys: product[] = []
   Carasouels: carasouel[] = []
