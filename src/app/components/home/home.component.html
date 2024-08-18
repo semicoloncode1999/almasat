@@ -20,7 +20,8 @@
                     Jewellery
                   </h1>
                   <p>
-                    We are committed to providing the highest standards of quality and design to give our customers pieces that reflect their good taste and add a touch of beauty to every moment
+                    We are committed to providing the highest standards of quality and design to give our customers
+                    pieces that reflect their good taste and add a touch of beauty to every moment
                   </p>
                   <div>
                     <a (click)="scrollTo()" class="btn btn-outline-dark">Shop Now</a>
@@ -40,7 +41,7 @@
 
   </section>
   <!-- end slider section -->
-   <h1 class="col-12 part-title pt-2" id="pro">أفضل و أروع الخواتم </h1>
+  <h1 class="col-12 part-title pt-2" id="pro">أفضل و أروع الخواتم </h1>
   <div class="col-12 item_section layout_padding2">
     <div class="container">
       <owl-carousel-o [options]="customOptions">
@@ -51,13 +52,14 @@
               <p class="title text-center w-100">{{item.title}}</p>
               <p class="details text-center w-100">{{item.details[0].details}}</p>
               <div class="d-flex justify-content-center">
-                <div> <i class="text-warning text-center w-100 bi bi-star-fill" *ngFor="let num of item.productRate|toNumber"></i></div>
+                <div> <i class="text-warning text-center w-100 bi bi-star-fill"
+                    *ngFor="let num of item.productRate|toNumber"></i></div>
               </div>
               <div class="text-center p-2">
-                <a routerLink="/rings" class="btn btn-outline-secondary">  See More  </a>
+                <a routerLink="/rings" class="btn btn-outline-secondary"> See More </a>
               </div>
             </div>
-          </ng-template>  
+          </ng-template>
         </ng-container>
       </owl-carousel-o>
     </div>
@@ -81,9 +83,10 @@
               </h2>
             </div>
             <p class="fs-4" style="line-height: 30px;">
-              متجر خواتم فضة هو وجهتك المثالية لعشاق الأناقة 
-              والتميز، حيث نقدم تشكيلة فريدة من الخواتم 
-              الفضية المصممة بعناية فائقة. نلتزم بتقديم أعلى معايير الجودة والتصميم لنمنح عملاءنا قطعاً تعكس ذوقهم الرفيع وتضفي لمسة من الجمال على كل لحظة.
+              متجر خواتم فضة هو وجهتك المثالية لعشاق الأناقة
+              والتميز، حيث نقدم تشكيلة فريدة من الخواتم
+              الفضية المصممة بعناية فائقة. نلتزم بتقديم أعلى معايير الجودة والتصميم لنمنح عملاءنا قطعاً تعكس ذوقهم
+              الرفيع وتضفي لمسة من الجمال على كل لحظة.
             </p>
             <div>
               <a routerLink="/about-us">
@@ -107,8 +110,8 @@
 
   <section class="price_section layout_padding">
     <div class="container">
-   <h1 class="col-12 part-title">أفضل و أروع المسابح </h1>
-   <div class="heading_container">
+      <h1 class="col-12 part-title">أفضل و أروع المسابح </h1>
+      <div class="heading_container">
       </div>
       <div class="price_container d-flex flex-wrap w-100">
         <div class="box" *ngFor="let item of rosaryInHome">
@@ -123,9 +126,10 @@
               $<span>1000.00</span>
             </h5> -->
             <div class="d-flex justify-content-center">
-              <div> <i class="text-warning text-center w-100 fs-5 bi bi-star-fill" *ngFor="let num of item.productRate|toNumber"></i></div>
+              <div> <i class="text-warning text-center w-100 fs-5 bi bi-star-fill"
+                  *ngFor="let num of item.productRate|toNumber"></i></div>
             </div>
-            <a routerLink="/rosary" class="text-decoration-none">  See More  </a>
+            <a routerLink="/rosary" class="text-decoration-none"> See More </a>
           </div>
         </div>
       </div>
@@ -289,33 +293,35 @@
     <div class="container">
       <div class="row">
         <div class="col-md-6">
-          <form action="">
+          <form [formGroup]="MessageForm" (ngSubmit)="sendUserMssage()">
             <div>
-              <input type="text" placeholder="Name" />
+              <input type="text" placeholder="Name" formControlName="name" />
             </div>
             <div>
-              <input type="email" placeholder="Email" />
+              <input type="email" placeholder="Email" formControlName="email" />
             </div>
             <div>
-              <input type="text" placeholder="Phone" />
+              <input type="text" placeholder="Phone" formControlName="phone" />
             </div>
             <div>
-              <input type="text" class="message-box" placeholder="Message" />
+              <input type="text" class="message-box" placeholder="Message" formControlName="msg" />
             </div>
             <div class="d-flex ">
-              <button>
-                SEND
-              </button>
+              <button type="submit" [disabled]="msgSent"> SEND </button>
             </div>
+            <div class="m-2 alert text-center" *ngIf="msgSent" [ngClass]="{
+              'alert-success':msgSent=='تم ارسال الرسالة بنجاح',
+              'alert-danger':msgSent=='لم يتم ارسال الرسالة'
+            }">{{msgSent}}</div>
           </form>
         </div>
         <div class="col-md-6">
           <div class="map_container">
             <div class="map-responsive">
               <iframe
-                src="https://www.google.com/maps/embed/v1/place?key=AIzaSyA0s1a7phLN0iaD6-UE7m4qP-z21pH0eSc&q=Eiffel+Tower+Paris+France"
-                width="600" height="300" frameborder="0" style="border:0; width: 100%; height:100%"
-                allowfullscreen></iframe>
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d111310.21058975553!2d47.79321077725838!3d29.327978564744!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3fcff410bda463d7%3A0x4dde79d4a62f202b!2z2KfZhNis2YfYsdin2KHYjCDYp9mE2YPZiNmK2KrigI4!5e0!3m2!1sar!2seg!4v1724021389953!5m2!1sar!2seg"
+                width="550" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
           </div>
         </div>

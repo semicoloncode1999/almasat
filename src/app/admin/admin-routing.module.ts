@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './admin.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { SocialLinksComponent } from './social-links/social-links.component';
+import { UsersMsgsComponent } from './users-msgs/users-msgs.component';
 
 const routes: Routes = [
   {path : "" ,component :AdminComponent,children:[
@@ -11,6 +12,7 @@ const routes: Routes = [
     {path:"youtube"  , loadChildren : () => import("./youtube/youtube.module").then(m => m.YoutubeModule)},
     {path:"about-us" , component:AboutUsComponent},
     {path:"social-links" , component:SocialLinksComponent},
+    {path:"user-msgs" , loadChildren : () => import("./users-msgs/users-msgs.module").then(m => m.UsersMsgsModule)},
     // {path:"" , component:},
   ]},
 ];
