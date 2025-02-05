@@ -11,3 +11,9 @@ export const environment = {
     measurementId: 'G-STQWK5GRPL',
   },
 };
+
+
+export const strapiEnvironment = {
+  Api_URL : 'http://localhost:1337/api/',
+  domain : 'http://localhost:1337'
+}

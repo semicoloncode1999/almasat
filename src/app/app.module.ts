@@ -19,13 +19,12 @@ import { ToastrModule } from 'ngx-toastr';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { HashLocationStrategy } from '@angular/common';
 import { CarouselModule } from 'ngx-owl-carousel-o';
-import { ToNumberPipe } from './modules/pipes/to-number.pipe';
-import { RingsComponent } from './components/rings/rings.component';
-import { ResoryComponent } from './components/resory/resory.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RingsModule } from './components/rings/rings.module';
+import { SkeletonModule } from 'primeng/skeleton';
+import { ProdDetailStrapiComponent } from './components/prod-detail-strapi/prod-detail-strapi.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +38,8 @@ import { RingsModule } from './components/rings/rings.module';
     ProductDetailsComponent,
     // YoutubeComponent,
     AboutUsComponent,
+    ProdDetailStrapiComponent,
+    // ToNumberPipe
   ],
   imports: [
     BrowserModule,
@@ -55,7 +56,11 @@ import { RingsModule } from './components/rings/rings.module';
     CarouselModule,
     FormsModule,
     ReactiveFormsModule,
-    RingsModule // we import it because it declares & exports the ToNumberPipe 
+    RingsModule, // we import it because it declares & exports the ToNumberPipe 
+    SkeletonModule
+  ],
+  exports:[
+    // ToNumberPipe,
   ],
   providers: [
     // we write it manually for uploading files
