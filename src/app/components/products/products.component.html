@@ -51,7 +51,7 @@
   <div class="container d-flex justify-content-center flex-wrap mt-3 bottom-page">
    <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 p-1" *ngFor="let item of strapiBackendProducts">
     <div class="card w-100">
-      <img #prod [src]="domain+item?.images[0]?.url" class="card-img-top" [alt]="item?.images[0]?.name" (error)="prod.src = 'assets/1.png'">
+      <img #prod [src]="item?.images[0]?.url" class="card-img-top" [alt]="item?.images[0]?.name" (error)="prod.src = 'assets/1.png'">
       <div class="card-body">
         <h5 class="card-title">{{item.name}}</h5>
         <h5 class="card-text">{{item.description}}</h5>

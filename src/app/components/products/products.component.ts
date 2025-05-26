@@ -6,7 +6,7 @@ import { carasouel } from 'src/app/modules/interfaces/carasouels.interface';
 import { product } from 'src/app/modules/interfaces/product.interface';
 import { CarasouelsService } from 'src/app/modules/services/carasouels.service';
 import { DataService } from 'src/app/modules/services/data.service';
-import { strapiEnvironment as env } from 'src/environments/environment';
+// import { strapiEnvironment as env } from 'src/environments/environment';
 
 @Component({
   selector: 'app-products',
@@ -15,7 +15,7 @@ import { strapiEnvironment as env } from 'src/environments/environment';
 })
 export class ProductsComponent {
 
-  domain:string = env.domain
+  // domain:string = env.domain
   paginationSize: number = 12;
   paginationCurrentPage: number = 1;
   products: product[] = []

@@ -1,3 +1,5 @@
+@use 'src/assets/scss/mixins' as * ;
+
 .content {
     position: relative;
     z-index: 2;
