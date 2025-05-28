@@ -9,19 +9,17 @@ import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
-  declarations: [
-    YoutubeComponent,
-    YoutubeSafeurlPipe
-  ],
-  imports: [
-    CommonModule,
-    YoutubeRoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
-    NgxPaginationModule
-  ],
-  exports:[
-    YoutubeSafeurlPipe
-  ]
+    imports: [
+        CommonModule,
+        YoutubeRoutingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        NgxPaginationModule,
+        YoutubeComponent,
+        YoutubeSafeurlPipe
+    ],
+    exports: [
+        YoutubeSafeurlPipe
+    ]
 })
 export class YoutubeModule { }

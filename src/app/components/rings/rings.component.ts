@@ -1,16 +1,22 @@
 import { Subscription } from 'rxjs';
 import { product } from './../../modules/interfaces/product.interface';
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { OwlOptions } from 'ngx-owl-carousel-o';
-import { customOptions } from 'src/app/modules/carasouel';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, OnDestroy, OnInit } from '@angular/core';
 import { DataService } from 'src/app/modules/services/data.service';
 import { carasouel } from 'src/app/modules/interfaces/carasouels.interface';
 import { CarasouelsService } from 'src/app/modules/services/carasouels.service';
+import { ToNumberPipe } from 'src/app/modules/pipes/to-number.pipe';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { RouterLink } from '@angular/router';
+import { NgClass } from '@angular/common';
+import { ProductShapeComponent } from 'src/app/shared/components/product-shape/product-shape.component';
 
 @Component({
   selector: 'app-rings',
   templateUrl: './rings.component.html',
-  styleUrls: ['./rings.component.scss', '../../modules/css-styles/producst.css']
+  styleUrls: ['./rings.component.scss', '../../modules/css-styles/producst.css'],
+  standalone: true,
+  imports: [NgClass, RouterLink, NgxPaginationModule, ToNumberPipe, ProductShapeComponent],
+  schemas:[CUSTOM_ELEMENTS_SCHEMA]
 })
 export class RingsComponent implements OnInit, OnDestroy {
 
@@ -32,11 +38,9 @@ export class RingsComponent implements OnInit, OnDestroy {
     this.Subscriptions.push(
       this.dataServ.getProducts("ring").subscribe({
         next: data => {
-          for (const key in data) {
-            this.rings.push(data[key])
-          }
+          this.rings = data;
         },
-        complete: ()=> this.rings.reverse()
+        complete: () => this.rings.reverse()
       })
     )
   }

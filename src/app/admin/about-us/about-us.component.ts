@@ -1,17 +1,20 @@
 import { Component, OnDestroy } from '@angular/core';
-import { Validators, FormBuilder, FormArray } from '@angular/forms';
+import { Validators, FormBuilder, FormArray, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { aboutUs } from 'src/app/modules/interfaces/aboutUS.interface';
 import { youtube } from 'src/app/modules/interfaces/youtube.interface';
 import { AboutUsDataService } from 'src/app/modules/services/about-us-data.service';
 import { YoutubeDataService } from 'src/app/modules/services/youtube-data.service';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
-  selector: 'app-about-us',
-  templateUrl: './about-us.component.html',
-  styleUrls: ['./about-us.component.scss', '../../modules/css-styles/admin.form.product.styles.css',
-    '../../modules/css-styles/change-position.drag-drop.css', '../../modules/css-styles/admin.styles.css']
+    selector: 'app-about-us',
+    templateUrl: './about-us.component.html',
+    styleUrls: ['./about-us.component.scss', '../../modules/css-styles/admin.form.product.styles.css',
+        '../../modules/css-styles/change-position.drag-drop.css', '../../modules/css-styles/admin.styles.css'],
+    standalone: true,
+    imports: [FormsModule, ReactiveFormsModule, NgxPaginationModule]
 })
 export class AboutUsComponent implements OnDestroy {
 

@@ -1,3 +1,7 @@
-<app-header *ngIf="appView"></app-header>
+@if (appView) {
+  <app-header></app-header>
+}
 <router-outlet></router-outlet>
-<app-z-footer *ngIf="appView"></app-z-footer>
+@if (appView) {
+  <app-z-footer></app-z-footer>
+}

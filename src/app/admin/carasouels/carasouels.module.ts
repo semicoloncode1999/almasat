@@ -10,17 +10,15 @@ import { AdminModule } from '../admin.module';
 
 
 @NgModule({
-  declarations: [
-    CarasouelsComponent
-  ],
-  imports: [
-    CommonModule,
-    CarasouelsRoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
-    CdkDrag,
-    CdkDropList,
-    AdminModule
-  ]
+    imports: [
+        CommonModule,
+        CarasouelsRoutingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        CdkDrag,
+        CdkDropList,
+        AdminModule,
+        CarasouelsComponent
+    ]
 })
 export class CarasouelsModule { }

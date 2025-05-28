@@ -1,16 +1,22 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { Subscription } from 'rxjs';
-import { customOptions } from 'src/app/modules/carasouel';
+import { customOptions } from 'src/app/shared/helpers/carasouel';
 import { carasouel } from 'src/app/modules/interfaces/carasouels.interface';
 import { product } from 'src/app/modules/interfaces/product.interface';
 import { CarasouelsService } from 'src/app/modules/services/carasouels.service';
 import { DataService } from 'src/app/modules/services/data.service';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { NgClass, NgFor } from '@angular/common';
+import { ToNumberPipe } from 'src/app/modules/pipes/to-number.pipe';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-resory',
   templateUrl: './resory.component.html',
-  styleUrls: ['./resory.component.scss', '../../modules/css-styles/producst.css']
+  styleUrls: ['./resory.component.scss', '../../modules/css-styles/producst.css'],
+  standalone :true,
+  imports:[NgxPaginationModule,NgClass,NgFor,ToNumberPipe,RouterLink]
 })
 export class ResoryComponent implements OnInit, OnDestroy {
 

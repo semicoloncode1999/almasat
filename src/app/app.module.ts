@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { ZFooterComponent } from './components/z-footer/z-footer.component';
 import { HomeComponent } from './components/home/home.component';
-import { AdminModule } from './admin/admin.module';
+// import { AdminModule } from './admin/admin.module';
 import { HttpClientModule } from "@angular/common/http";
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
@@ -22,29 +22,15 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RingsModule } from './components/rings/rings.module';
 import { SkeletonModule } from 'primeng/skeleton';
-import { ProdDetailStrapiComponent } from './components/prod-detail-strapi/prod-detail-strapi.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    HeaderComponent,
-    ZFooterComponent,
-    HomeComponent,
-    // ToNumberPipe,
-    // RingsComponent,
-    // ResoryComponent,
-    ProductDetailsComponent,
-    // YoutubeComponent,
-    AboutUsComponent,
-    ProdDetailStrapiComponent,
-    // ToNumberPipe
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    AdminModule,
+    // AdminModule,
     HttpClientModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideDatabase(() => getDatabase()),
@@ -56,7 +42,6 @@ import { ProdDetailStrapiComponent } from './components/prod-detail-strapi/prod-
     CarouselModule,
     FormsModule,
     ReactiveFormsModule,
-    RingsModule, // we import it because it declares & exports the ToNumberPipe 
     SkeletonModule
   ],
   exports:[
@@ -67,6 +52,6 @@ import { ProdDetailStrapiComponent } from './components/prod-detail-strapi/prod-
     { provide: FIREBASE_OPTIONS, useValue: environment.firebase },
     { provide: HashLocationStrategy, useClass: HashLocationStrategy }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: []
 })
 export class AppModule { }

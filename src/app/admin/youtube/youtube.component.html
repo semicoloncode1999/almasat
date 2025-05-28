@@ -11,58 +11,71 @@
     </div>
   </div>
 
-  <form class="mt-3" [formGroup]="youtube" (ngSubmit)="submit()" *ngIf="controlView=='add' || controlView=='edit'">
-    <div class="form-group">
-      <label for="title">title</label>
-      <input type="text" class="form-control" placeholder="title" formControlName="title">
-    </div>
-    <div class="form-group">
-      <label for="url">youtube link</label>
-      <input type="url" class="form-control" placeholder="url" formControlName="url" (input)="setVideo($event)">
-      <iframe [src]="videoLink! | youtubeSafeurl" class="mt-3" frameborder="0" *ngIf="videoLink"></iframe>
-    </div>
-    <div class="text-center">
-      <button class="btn btn-primary m-2" type="submit" *ngIf="controlView=='add'"> Add </button>
-      <button class="btn btn-warning m-2" type="submit" *ngIf="controlView=='edit'"> Edit </button>
-    </div>
-  </form>
-  
-
-  <table class="table table-striped text-center" *ngIf="controlView=='show'">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">title</th>
-        <th scope="col">youtube</th>
-        <th scope="col"></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of youtubeArray | paginate:{itemsPerPage:paginationSize ,currentPage:paginationCurrentPage}; let i = index" class="text-center">
-        <th class="pt-5" scope="row">{{ i+1 + (paginationSize * (paginationCurrentPage-1) )}}</th>
-        <td class="pt-5">{{item.title}}</td>
-        <td><iframe [src]="item.url | youtubeSafeurl" frameborder="0"></iframe></td>
-        <td class="pt-5">
-          <button class="btn btn-warning" (click)="controlView='edit';getItem(item);"><i class="bi bi-pencil-square"></i></button>
-          <button class="btn btn-danger" (click)="getItem(item); controlView='delete'"><i class="bi bi-trash3"></i></button>
-        </td>
-      </tr>
-      <div class="col-12 pagination-class">
-        <pagination-controls (pageChange)="paginationCurrentPage=$event"></pagination-controls>
+  @if (controlView=='add' || controlView=='edit') {
+    <form class="mt-3" [formGroup]="youtube" (ngSubmit)="submit()">
+      <div class="form-group">
+        <label for="title">title</label>
+        <input type="text" class="form-control" placeholder="title" formControlName="title">
       </div>
-    </tbody>
-  </table>
-
-
-  <div class="pre-delete" *ngIf="controlView=='delete'">
-    <div>
-      <iframe [src]="globalObject.url | youtubeSafeurl" frameborder="0"></iframe>
+      <div class="form-group">
+        <label for="url">youtube link</label>
+        <input type="url" class="form-control" placeholder="url" formControlName="url" (input)="setVideo($event)">
+        @if (videoLink) {
+          <iframe [src]="videoLink! | youtubeSafeurl" class="mt-3" frameborder="0"></iframe>
+        }
+      </div>
       <div class="text-center">
-        <h4 class="p-2  text-info">{{globalObject.title}}</h4>
-        <p class="btn btn-danger m-2" (click)="deleteItem()">delete</p>
-        <p class="btn btn-secondary m-2" (click)="controlView='show'">cancel</p>
+        @if (controlView=='add') {
+          <button class="btn btn-primary m-2" type="submit"> Add </button>
+        }
+        @if (controlView=='edit') {
+          <button class="btn btn-warning m-2" type="submit"> Edit </button>
+        }
       </div>
-      
+    </form>
+  }
+
+
+  @if (controlView=='show') {
+    <table class="table table-striped text-center">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">title</th>
+          <th scope="col">youtube</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of youtubeArray | paginate:{itemsPerPage:paginationSize ,currentPage:paginationCurrentPage}; track item; let i = $index) {
+          <tr class="text-center">
+            <th class="pt-5" scope="row">{{ i+1 + (paginationSize * (paginationCurrentPage-1) )}}</th>
+            <td class="pt-5">{{item.title}}</td>
+            <td><iframe [src]="item.url | youtubeSafeurl" frameborder="0"></iframe></td>
+            <td class="pt-5">
+              <button class="btn btn-warning" (click)="controlView='edit';getItem(item);"><i class="bi bi-pencil-square"></i></button>
+              <button class="btn btn-danger" (click)="getItem(item); controlView='delete'"><i class="bi bi-trash3"></i></button>
+            </td>
+          </tr>
+        }
+        <div class="col-12 pagination-class">
+          <pagination-controls (pageChange)="paginationCurrentPage=$event"></pagination-controls>
+        </div>
+      </tbody>
+    </table>
+  }
+
+
+  @if (controlView=='delete') {
+    <div class="pre-delete">
+      <div>
+        <iframe [src]="globalObject.url | youtubeSafeurl" frameborder="0"></iframe>
+        <div class="text-center">
+          <h4 class="p-2  text-info">{{globalObject.title}}</h4>
+          <p class="btn btn-danger m-2" (click)="deleteItem()">delete</p>
+          <p class="btn btn-secondary m-2" (click)="controlView='show'">cancel</p>
+        </div>
+      </div>
     </div>
-  </div>
+  }
 </div>

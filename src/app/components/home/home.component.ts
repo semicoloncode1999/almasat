@@ -1,18 +1,22 @@
-import { customOptions } from './../../modules/carasouel';
+import { customOptions } from '../../shared/helpers/carasouel';
 import { Subscription } from 'rxjs';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { product } from 'src/app/modules/interfaces/product.interface';
 import { DataService } from 'src/app/modules/services/data.service';
-import { OwlOptions } from 'ngx-owl-carousel-o';
-import { ViewportScroller } from '@angular/common';
-import { FormBuilder, Validators } from '@angular/forms';
+import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
+import { NgClass, ViewportScroller } from '@angular/common';
+import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HomeMsgService } from 'src/app/modules/services/home-msg.service';
 import { ToastrService } from 'ngx-toastr';
+import { ToNumberPipe } from 'src/app/modules/pipes/to-number.pipe';
+import { ProductsCarouselComponent } from 'src/app/shared/components/products-carousel/products-carousel.component';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss', '../../modules/css-styles/producst.css']
+  styleUrls: ['./home.component.scss', '../../modules/css-styles/producst.css'],
+  standalone: true,
+  imports: [FormsModule, ReactiveFormsModule, CarouselModule, ToNumberPipe, NgClass,ProductsCarouselComponent],
 })
 export class HomeComponent implements OnInit, OnDestroy {
 

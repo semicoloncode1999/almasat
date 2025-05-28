@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { AboutUsDataService } from 'src/app/modules/services/about-us-data.service';
@@ -7,9 +7,11 @@ import { CountryCodesService } from 'src/app/modules/services/country-codes.serv
 import { SocialMediaService } from 'src/app/modules/services/social-media.service';
 
 @Component({
-  selector: 'app-social-links',
-  templateUrl: './social-links.component.html',
-  styleUrls: ['./social-links.component.scss', '../../modules/css-styles/admin.form.product.styles.css', '../../modules/css-styles/change-position.drag-drop.css']
+    selector: 'app-social-links',
+    templateUrl: './social-links.component.html',
+    styleUrls: ['./social-links.component.scss', '../../modules/css-styles/admin.form.product.styles.css', '../../modules/css-styles/change-position.drag-drop.css'],
+    standalone: true,
+    imports: [FormsModule, ReactiveFormsModule]
 })
 export class SocialLinksComponent implements OnInit , OnDestroy {
 

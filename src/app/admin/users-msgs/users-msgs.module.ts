@@ -7,13 +7,11 @@ import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
-  declarations: [
-    UsersMsgsComponent,
-  ],
-  imports: [
-    CommonModule,
-    UsersMsgsRoutingModule,
-    NgxPaginationModule
-  ]
+    imports: [
+        CommonModule,
+        UsersMsgsRoutingModule,
+        NgxPaginationModule,
+        UsersMsgsComponent
+    ]
 })
 export class UsersMsgsModule { }

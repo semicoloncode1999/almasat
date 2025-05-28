@@ -1,49 +1,65 @@
 <div class="container d-flex justify-content-end buttons-group">
-    <button class="btn btn-warning" (click)="controlView='edit';resetData()" [disabled]="controlView=='edit'">edit</button>
-    <button class="btn btn-secondary" (click)="controlView='data';getCarasouelCategory($event)" [disabled]="controlView=='data'">show data</button>
+  <button class="btn btn-warning" (click)="controlView='edit';resetData()" [disabled]="controlView=='edit'">edit</button>
+  <button class="btn btn-secondary" (click)="controlView='data';getCarasouelCategory($event)" [disabled]="controlView=='data'">show data</button>
 </div>
 
-<div class="container" *ngIf="controlView=='edit'">
+@if (controlView=='edit') {
+  <div class="container">
     <form [formGroup]="carasouel" (ngSubmit)="submit()">
-        <!-- choose category -->
-        <div class="form-group">
-            <label for="page">select page category</label>
-            <select name="page" id="page" class="form-select" (change)="getCarasouelCategory($event)">
-                <option value=""></option>
-                <option [value]="item" *ngFor="let item of categories">{{item}}</option>
-            </select>
-        </div>
-        <!-- upload photo -->
-        <div class="form-group">
-            <label for="file">upload photo</label>
-            <input type="file" class="form-control" multiple (change)="uploadImages($event)">
-        </div>
-        <!-- the loading notification -->
-        <small class="loading-text" *ngIf="loadingMsg">
-            <div class="spinner-grow" role="status">
-                <span class="visually-hidden">Loading...</span>
-            </div>uploading...
+      <!-- choose category -->
+      <div class="form-group">
+        <label for="page">select page category</label>
+        <select name="page" id="page" class="form-select" (change)="getCarasouelCategory($event)">
+          <option value=""></option>
+          @for (item of categories; track item) {
+            <option [value]="item">{{item}}</option>
+          }
+        </select>
+      </div>
+      <!-- upload photo -->
+      <div class="form-group">
+        <label for="file">upload photo</label>
+        <input type="file" class="form-control" multiple (change)="uploadImages($event)">
+      </div>
+      <!-- the loading notification -->
+      @if (loadingMsg) {
+        <small class="loading-text">
+          <div class="spinner-grow" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>uploading...
         </small>
-        <!-- view the list of images and ordering them -->
-        <div *ngIf="!loadingMsg" cdkDropList cdkDropListOrientation="horizontal" class="example-list text-center" (cdkDropListDropped)="drop($event)">
-            <div class="example-box" cdkDrag *ngFor="let item of promoImages; let i = index">
-                <img [src]="item" alt="" class="image-product">
-                <span class="delete-image text-danger" (click)="del(i)"><i class="bi bi-x-circle"></i></span>
+      }
+      <!-- view the list of images and ordering them -->
+      @if (!loadingMsg) {
+        <div cdkDropList cdkDropListOrientation="horizontal" class="example-list text-center" (cdkDropListDropped)="drop($event)">
+          @for (item of promoImages; track item; let i = $index) {
+            <div class="example-box" cdkDrag>
+              <img [src]="item" alt="" class="image-product">
+              <span class="delete-image text-danger" (click)="del(i)"><i class="bi bi-x-circle"></i></span>
             </div>
+          }
         </div>
-        <!-- --- button submit --- -->
-        <div class="text-center p-2">
-            <button type="submit" class="btn btn-warning"  [disabled]="!promoImages.length || loadingMsg">Edit product</button>
-        </div>
+      }
+      <!-- --- button submit --- -->
+      <div class="text-center p-2">
+        <button type="submit" class="btn btn-warning"  [disabled]="!promoImages.length || loadingMsg">Edit product</button>
+      </div>
     </form>
-</div>
+  </div>
+}
 
-<div class="pre-delete" *ngIf="controlView=='data'">
-    <div class="m-1" *ngFor="let item of carasouels">
+@if (controlView=='data') {
+  <div class="pre-delete">
+    @for (item of carasouels; track item) {
+      <div class="m-1">
         <p><b>id : </b> {{item.id}}</p>
         <p><b>page : </b> {{item.page}}</p>
-        <img [src]="temp.img" alt="" class="image-product" *ngFor="let temp of item.images">
+        @for (temp of item.images; track temp) {
+          <img [src]="temp.img" alt="" class="image-product">
+        }
         <hr>
+        </div>
+      }
     </div>
-</div>
+  }
 

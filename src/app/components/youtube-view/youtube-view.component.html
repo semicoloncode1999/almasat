@@ -1,15 +1,17 @@
 
 <div class="col-12">
-    <div class=" container front-page bottom-page d-flex justify-content-center flex-wrap">
-        <div class="col-lg-4 col-md-4 col-sm-6" *ngFor="let item of youtubes | paginate:{itemsPerPage:paginationSize ,currentPage:paginationCurrentPage}; let i = index">
-            <div class="card m-1 p-1">
-                <iframe [src]="item.url | youtubeSafeurl " frameborder="0"></iframe>
-                <p class="text-center text-capitalize title">{{item.title}}</p>
-            </div>
+  <div class=" container front-page bottom-page d-flex justify-content-center flex-wrap">
+    @for (item of youtubes | paginate:{itemsPerPage:paginationSize ,currentPage:paginationCurrentPage}; track item; let i = $index) {
+      <div class="col-lg-4 col-md-4 col-sm-6">
+        <div class="card m-1 p-1">
+          <iframe [src]="item.url | youtubeSafeurl " frameborder="0"></iframe>
+          <p class="text-center text-capitalize title">{{item.title}}</p>
         </div>
-        <div class="col-12 pagination-class d-flex justify-content-center mt-5">
-            <pagination-controls (pageChange)="paginationCurrentPage=$event"></pagination-controls>
-          </div>
+      </div>
+    }
+    <div class="col-12 pagination-class d-flex justify-content-center mt-5">
+      <pagination-controls (pageChange)="paginationCurrentPage=$event"></pagination-controls>
     </div>
-    
+  </div>
+
 </div>

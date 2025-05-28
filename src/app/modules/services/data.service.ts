@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { product } from '../interfaces/product.interface';
 import { environment } from 'src/environments/environment';
-import { Observable, retry } from 'rxjs';
+import { map, Observable, retry } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +18,15 @@ export class DataService {
 
 
   getProducts(position: string): Observable<product[]> {
-    return this.http.get<product[]>(`${this.url}/${position}.json`)
+    let arr:any[]=[];
+    return this.http.get<product[]>(`${this.url}/${position}.json`).pipe(
+      map((data:any) => {
+        for (const key in data) {
+            arr.push(data[key])
+          }
+        return arr
+      })
+    )
   }
 
 

@@ -1,0 +1,20 @@
+<owl-carousel-o [options]="customOptions">
+    @for (item of array; track item) {
+    <ng-template carouselSlide>
+        <div class="owl-carousel-o card p-1">
+            <img [src]="item.images[0].img" alt="" class="carasoel-image">
+            <p class="title text-center w-100">{{item.title}}</p>
+            <p class="details text-center w-100">{{item.details[0].details}}</p>
+            <div class="d-flex justify-content-center">
+                <div> @for (num of item.productRate|toNumber; track num) {
+                    <i class="text-warning text-center w-100 bi bi-star-fill"></i>
+                    }
+                </div>
+            </div>
+            <div class="text-center p-2">
+                <a routerLink="products/ring" class="btn btn-outline-secondary"> See More </a>
+            </div>
+        </div>
+    </ng-template>
+    }
+</owl-carousel-o>

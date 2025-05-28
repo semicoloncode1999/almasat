@@ -1,7 +1,8 @@
 
 
- <!-- ---------------------------- table Data ---------------------------- -->
- <table class="table table-striped text-center" *ngIf="controlView=='show'">
+<!-- ---------------------------- table Data ---------------------------- -->
+@if (controlView=='show') {
+  <table class="table table-striped text-center">
     <thead>
       <tr>
         <th scope="col">#</th>
@@ -13,18 +14,21 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let item of userMsgArray | paginate:{itemsPerPage:paginationSize ,currentPage:paginationCurrentPage}; let i = index" class="text-center">
-        <th scope="row">{{i + 1 + ( paginationSize * (paginationCurrentPage-1))}}</th>
-        <td>{{item.name}}</td>
-        <td>{{item.email}}</td>
-        <td>{{item.phone}}</td>
-        <td>{{item.msg}}</td>
-        <td>
-          <button class="btn btn-danger" (click)="deleteItem(item.id); controlView='delete'"><i class="bi bi-trash3"></i></button>
-        </td>
-      </tr>
+      @for (item of userMsgArray | paginate:{itemsPerPage:paginationSize ,currentPage:paginationCurrentPage}; track item; let i = $index) {
+        <tr class="text-center">
+          <th scope="row">{{i + 1 + ( paginationSize * (paginationCurrentPage-1))}}</th>
+          <td>{{item.name}}</td>
+          <td>{{item.email}}</td>
+          <td>{{item.phone}}</td>
+          <td>{{item.msg}}</td>
+          <td>
+            <button class="btn btn-danger" (click)="deleteItem(item.id); controlView='delete'"><i class="bi bi-trash3"></i></button>
+          </td>
+        </tr>
+      }
       <div class="col-12 pagination-class w-100 m-4 d-flex justify-content-center">
         <pagination-controls (pageChange)="paginationCurrentPage=$event"></pagination-controls>
       </div>
     </tbody>
   </table>
+}

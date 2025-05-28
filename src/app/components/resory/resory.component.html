@@ -1,11 +1,11 @@
 <div class="col-12">
   <div id="carouselExample" class="carousel slide slider-mt" data-bs-ride="carousel">
     <div class="carousel-inner">
-      <ng-container *ngFor="let item of Carasouels[1].images; let i=index">
+      @for (item of Carasouels[1].images; track item; let i = $index) {
         <div class="carousel-item" [ngClass]="{'active':i==0}">
           <img [src]="item.img" class="d-block w-100" alt="...">
         </div>
-      </ng-container>
+      }
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -19,22 +19,26 @@
 </div>
 
 <div class="col-12 d-flex justify-content-center flex-wrap mt-3 bottom-page">
-    <div class="col-lg-3 col-md-4 col-sm-6 p-1" *ngFor="let item of rosarys | paginate:{itemsPerPage:paginationSize ,currentPage:paginationCurrentPage}; let i = index">
-        <div class="card mb-2">
-            <div class="product card p-1">
-                <img [src]="item.images[0].img" alt="" class="carasoel-image w-100">
-                <p class="title text-center w-100">{{item.title}}</p>
-                <p class="details text-center w-100">{{item.details[0].details}}</p>
-                <div class="d-flex justify-content-center">
-                  <div> <i class="text-warning text-center w-100 bi bi-star-fill" *ngFor="let num of item.productRate|toNumber"></i></div>
-                </div>
-                <div class="text-center p-2">
-                  <a routerLink="/prodcut-details/rosary-{{item.id}}" class="btn btn-outline-secondary">  تفاصيل المنتج  </a>
-                </div>
-              </div>
+  @for (item of rosarys | paginate:{itemsPerPage:paginationSize ,currentPage:paginationCurrentPage}; track item; let i = $index) {
+    <div class="col-lg-3 col-md-4 col-sm-6 p-1">
+      <div class="card mb-2">
+        <div class="product card p-1">
+          <img [src]="item.images[0].img" alt="" class="carasoel-image w-100">
+          <p class="title text-center w-100">{{item.title}}</p>
+          <p class="details text-center w-100">{{item.details[0].details}}</p>
+          <div class="d-flex justify-content-center">
+            <div> @for (num of item.productRate|toNumber; track num) {
+              <i class="text-warning text-center w-100 bi bi-star-fill"></i>
+            }</div>
+          </div>
+          <div class="text-center p-2">
+            <a routerLink="/prodcut-details/rosary-{{item.id}}" class="btn btn-outline-secondary">  تفاصيل المنتج  </a>
+          </div>
         </div>
+      </div>
     </div>
-    <div class="col-12 pagination-class d-flex justify-content-center mt-5">
-      <pagination-controls (pageChange)="paginationCurrentPage=$event"></pagination-controls>
-    </div>
+  }
+  <div class="col-12 pagination-class d-flex justify-content-center mt-5">
+    <pagination-controls (pageChange)="paginationCurrentPage=$event"></pagination-controls>
+  </div>
 </div>

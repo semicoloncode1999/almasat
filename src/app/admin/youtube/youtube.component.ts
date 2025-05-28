@@ -1,15 +1,19 @@
 import { youtube } from './../../modules/interfaces/youtube.interface';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { YoutubeDataService } from 'src/app/modules/services/youtube-data.service';
+import { YoutubeSafeurlPipe } from 'src/app/modules/pipes/youtube-safeurl.pipe';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
-  selector: 'app-youtube',
-  templateUrl: './youtube.component.html',
-  styleUrls: ['./youtube.component.scss', '../../modules/css-styles/admin.form.product.styles.css',
-    '../../modules/css-styles/change-position.drag-drop.css', '../../modules/css-styles/admin.styles.css']
+    selector: 'app-youtube',
+    templateUrl: './youtube.component.html',
+    styleUrls: ['./youtube.component.scss', '../../modules/css-styles/admin.form.product.styles.css',
+        '../../modules/css-styles/change-position.drag-drop.css', '../../modules/css-styles/admin.styles.css'],
+    standalone: true,
+    imports: [FormsModule, ReactiveFormsModule, NgxPaginationModule, YoutubeSafeurlPipe]
 })
 export class YoutubeComponent implements OnDestroy {
 

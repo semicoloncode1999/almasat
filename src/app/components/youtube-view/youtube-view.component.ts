@@ -2,11 +2,15 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { youtube } from 'src/app/modules/interfaces/youtube.interface';
 import { YoutubeDataService } from 'src/app/modules/services/youtube-data.service';
+import { YoutubeSafeurlPipe } from 'src/app/modules/pipes/youtube-safeurl.pipe';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
-  selector: 'app-youtube-view',
-  templateUrl: './youtube-view.component.html',
-  styleUrls: ['./youtube-view.component.scss', '../../modules/css-styles/producst.css']
+    selector: 'app-youtube-view',
+    templateUrl: './youtube-view.component.html',
+    styleUrls: ['./youtube-view.component.scss', '../../modules/css-styles/producst.css'],
+    standalone: true,
+    imports: [NgxPaginationModule, YoutubeSafeurlPipe]
 })
 export class YoutubeViewComponent implements OnDestroy, OnInit {
 

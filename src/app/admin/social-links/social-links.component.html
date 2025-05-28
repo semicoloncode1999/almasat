@@ -15,7 +15,9 @@
               <span>
                 <label for="countryCode">country Code : </label>
                 <select name="countryCode" id="countryCode" class="form-select" formControlName="countryCode">
-                  <option [value]="item" *ngFor="let item of arabCountryCodes">{{item}}</option>
+                  @for (item of arabCountryCodes; track item) {
+                    <option [value]="item">{{item}}</option>
+                  }
                 </select>
               </span>
               <span class="mrg-left">

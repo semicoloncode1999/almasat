@@ -1,7 +1,7 @@
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray, CdkDropList, CdkDrag } from '@angular/cdk/drag-drop';
 import { Component, OnDestroy } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
-import { FormArray, FormBuilder, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { carasouel } from 'src/app/modules/interfaces/carasouels.interface';
@@ -10,9 +10,11 @@ import { DataService } from 'src/app/modules/services/data.service';
 import { UploadImagePromoService } from 'src/app/modules/services/upload-image-promo.service';
 
 @Component({
-  selector: 'app-carasouels',
-  templateUrl: './carasouels.component.html',
-  styleUrls: ['./carasouels.component.scss', '../../modules/css-styles/admin.form.product.styles.css', '../../modules/css-styles/change-position.drag-drop.css']
+    selector: 'app-carasouels',
+    templateUrl: './carasouels.component.html',
+    styleUrls: ['./carasouels.component.scss', '../../modules/css-styles/admin.form.product.styles.css', '../../modules/css-styles/change-position.drag-drop.css'],
+    standalone: true,
+    imports: [FormsModule, ReactiveFormsModule, CdkDropList, CdkDrag]
 })
 export class CarasouelsComponent implements OnDestroy {
 

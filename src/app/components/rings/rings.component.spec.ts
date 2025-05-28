@@ -8,8 +8,8 @@ describe('RingsComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [RingsComponent]
-    });
+    imports: [RingsComponent]
+});
     fixture = TestBed.createComponent(RingsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

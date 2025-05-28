@@ -1,18 +1,21 @@
 import { CountriesCurrencyService } from './../../modules/services/countries-currency.service';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { Component, OnDestroy } from '@angular/core';
-import { Validators, FormBuilder, FormArray } from '@angular/forms';
+import { Validators, FormBuilder, FormArray, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DataService } from 'src/app/modules/services/data.service';
 import { UploadImagePromoService } from 'src/app/modules/services/upload-image-promo.service';
 import { product } from 'src/app/modules/interfaces/product.interface';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray, CdkDropList, CdkDrag } from '@angular/cdk/drag-drop';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
+import { ViewEditProdsComponent } from './view-edit-prods/view-edit-prods.component';
 
 @Component({
-  selector: 'app-product',
-  templateUrl: './product.component.html',
-  styleUrls: ['./product.component.scss', '../../modules/css-styles/admin.form.product.styles.css', '../../modules/css-styles/change-position.drag-drop.css']
+    selector: 'app-product',
+    templateUrl: './product.component.html',
+    styleUrls: ['./product.component.scss', '../../modules/css-styles/admin.form.product.styles.css', '../../modules/css-styles/change-position.drag-drop.css'],
+    standalone: true,
+    imports: [FormsModule, ReactiveFormsModule, CdkDropList, CdkDrag, ViewEditProdsComponent]
 })
 export class ProductComponent implements OnDestroy {
   controlView: string = "add";

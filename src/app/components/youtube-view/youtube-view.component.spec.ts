@@ -8,8 +8,8 @@ describe('YoutubeViewComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [YoutubeViewComponent]
-    });
+    imports: [YoutubeViewComponent]
+});
     fixture = TestBed.createComponent(YoutubeViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

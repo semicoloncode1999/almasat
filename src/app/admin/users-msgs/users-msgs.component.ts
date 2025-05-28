@@ -3,11 +3,14 @@ import { Component } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { HomeMsgService } from 'src/app/modules/services/home-msg.service';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
-  selector: 'app-users-msgs',
-  templateUrl: './users-msgs.component.html',
-  styleUrls: ['./users-msgs.component.scss']
+    selector: 'app-users-msgs',
+    templateUrl: './users-msgs.component.html',
+    styleUrls: ['./users-msgs.component.scss'],
+    standalone: true,
+    imports: [NgxPaginationModule]
 })
 export class UsersMsgsComponent {
 

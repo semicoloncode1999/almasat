@@ -1,8 +1,10 @@
 <!-- Button trigger modal -->
 <div class="col-12">
-    <div class="item-view-container" *ngFor="let item of globalObject">
-        <div>
-            <p>{{item|json}}</p>
-        </div>
+  @for (item of globalObject; track item) {
+    <div class="item-view-container">
+      <div>
+        <p>{{item|json}}</p>
+      </div>
     </div>
+  }
 </div>

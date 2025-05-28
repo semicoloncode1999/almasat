@@ -10,21 +10,19 @@ import { AboutUsComponent } from './about-us/about-us.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
-  declarations: [
-    AdminComponent,
-    ViewItemsComponent,
-    SocialLinksComponent,
-    AboutUsComponent,
-  ],
-  imports: [
-    CommonModule,
-    AdminRoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
-    NgxPaginationModule
-  ],
-  exports:[
-    ViewItemsComponent
-  ]
+    imports: [
+        CommonModule,
+        AdminRoutingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        NgxPaginationModule,
+        AdminComponent,
+        ViewItemsComponent,
+        SocialLinksComponent,
+        AboutUsComponent
+    ],
+    exports: [
+        ViewItemsComponent
+    ]
 })
 export class AdminModule { }

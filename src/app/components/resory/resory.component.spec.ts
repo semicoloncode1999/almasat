@@ -8,8 +8,8 @@ describe('ResoryComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ResoryComponent]
-    });
+    declarations: [ResoryComponent]
+});
     fixture = TestBed.createComponent(ResoryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

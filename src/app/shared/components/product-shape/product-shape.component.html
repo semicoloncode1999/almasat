@@ -1,0 +1,16 @@
+<div class="card mb-2">
+    <div class="product card p-1">
+        <img [src]="item?.images[0].img" alt="" class="product-image w-100">
+        <p class="title text-center w-100">{{item?.title}}</p>
+        <p class="details text-center w-100">{{item?.details[0].details}}</p>
+        <div class="d-flex justify-content-center">
+            <div> @for (num of item?.productRate|toNumber; track num) {
+                <i class="text-warning text-center w-100 bi bi-star-fill"></i>
+                }
+            </div>
+        </div>
+        <div class="text-center p-2">
+            <a routerLink="/prodcut-details/ring-{{item?.id}}" class="btn btn-outline-secondary"> تفاصيل المنتج </a>
+        </div>
+    </div>
+</div>

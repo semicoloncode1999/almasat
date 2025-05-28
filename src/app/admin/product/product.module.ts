@@ -10,18 +10,16 @@ import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
-  declarations: [
-    ProductComponent,
-    ViewEditProdsComponent
-  ],
-  imports: [
-    CommonModule,
-    ProductRoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
-    CdkDrag,
-    CdkDropList,
-    NgxPaginationModule
-  ]
+    imports: [
+        CommonModule,
+        ProductRoutingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        CdkDrag,
+        CdkDropList,
+        NgxPaginationModule,
+        ProductComponent,
+        ViewEditProdsComponent
+    ]
 })
 export class ProductModule { }
