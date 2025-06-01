@@ -12,7 +12,7 @@ export const routes: Routes = [
   { path: "youtube", loadChildren: () => import("./components/youtube-view/youtube.routes").then(m => m.routes) },
   { path: "about-us", component: AboutUsComponent },
   { path: "prodcut-details/:id", component: ProductDetailsComponent },
-  { path: "admin", loadChildren: () => import("./admin/admin.module").then(m => m.AdminModule) },
+  { path: "admin", loadChildren: () => import("./admin/admin.routes").then(m => m.routes) },
   // { path: "add-translation", loadComponent : ()=> import('./translate/components/add-translation').then(c=> c.AddTranslationComponent) },
 ];
 

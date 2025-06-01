@@ -1,6 +1,4 @@
-import { AddTranslationComponent } from './../translate/components/add-translation/add-translation.component';
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 import { AdminComponent } from './admin.component';
 import { SocialLinksComponent } from './components/social-links/social-links.component';
 import { AboutUsComponent } from '../components/about-us/about-us.component';
@@ -18,9 +16,3 @@ export const routes: Routes = [
     ]
   },
 ];
-
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
-})
-export class AdminRoutingModule { }
