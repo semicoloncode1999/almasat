@@ -12,7 +12,7 @@ import { UploadImagePromoService } from 'src/app/modules/services/upload-image-p
 @Component({
     selector: 'app-carasouels',
     templateUrl: './carasouels.component.html',
-    styleUrls: ['./carasouels.component.scss', '../../modules/css-styles/admin.form.product.styles.css', '../../modules/css-styles/change-position.drag-drop.css'],
+    styleUrls: ['./carasouels.component.scss', '../../../modules/css-styles/admin.form.product.styles.css', '../../../modules/css-styles/change-position.drag-drop.css'],
     standalone: true,
     imports: [FormsModule, ReactiveFormsModule, CdkDropList, CdkDrag]
 })

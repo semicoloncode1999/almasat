@@ -9,7 +9,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 @Component({
     selector: 'app-view-edit-prods',
     templateUrl: './view-edit-prods.component.html',
-    styleUrls: ['./view-edit-prods.component.scss', '../../../modules/css-styles/admin.form.product.styles.css', '../../../modules/css-styles/admin.styles.css'],
+    styleUrls: ['./view-edit-prods.component.scss', '../../../../modules/css-styles/admin.form.product.styles.css', '../../../../modules/css-styles/admin.styles.css'],
     standalone: true,
     imports: [NgxPaginationModule]
 })

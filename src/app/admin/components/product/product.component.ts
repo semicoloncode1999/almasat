@@ -1,4 +1,3 @@
-import { CountriesCurrencyService } from './../../modules/services/countries-currency.service';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { Component, OnDestroy } from '@angular/core';
 import { Validators, FormBuilder, FormArray, FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -9,11 +8,12 @@ import { CdkDragDrop, moveItemInArray, CdkDropList, CdkDrag } from '@angular/cdk
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { ViewEditProdsComponent } from './view-edit-prods/view-edit-prods.component';
+import { CountriesCurrencyService } from 'src/app/modules/services/countries-currency.service';
 
 @Component({
     selector: 'app-product',
     templateUrl: './product.component.html',
-    styleUrls: ['./product.component.scss', '../../modules/css-styles/admin.form.product.styles.css', '../../modules/css-styles/change-position.drag-drop.css'],
+    styleUrls: ['./product.component.scss', '../../../modules/css-styles/admin.form.product.styles.css', '../../../modules/css-styles/change-position.drag-drop.css'],
     standalone: true,
     imports: [FormsModule, ReactiveFormsModule, CdkDropList, CdkDrag, ViewEditProdsComponent]
 })

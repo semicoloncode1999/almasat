@@ -1,4 +1,4 @@
-import { youtube } from './../../modules/interfaces/youtube.interface';
+import { youtube } from '../../../modules/interfaces/youtube.interface';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -10,8 +10,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
 @Component({
     selector: 'app-youtube',
     templateUrl: './youtube.component.html',
-    styleUrls: ['./youtube.component.scss', '../../modules/css-styles/admin.form.product.styles.css',
-        '../../modules/css-styles/change-position.drag-drop.css', '../../modules/css-styles/admin.styles.css'],
+    styleUrls: ['./youtube.component.scss', '../../../modules/css-styles/admin.form.product.styles.css',
+        '../../../modules/css-styles/change-position.drag-drop.css', '../../../modules/css-styles/admin.styles.css'],
     standalone: true,
     imports: [FormsModule, ReactiveFormsModule, NgxPaginationModule, YoutubeSafeurlPipe]
 })

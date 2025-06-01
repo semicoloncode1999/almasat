@@ -4,19 +4,20 @@ import { HomeComponent } from './components/home/home.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
 
-const routes: Routes = [
+export const routes: Routes = [
   { path: "home", redirectTo: "", pathMatch: "full" },
   { path: "", component: HomeComponent },
-  { path: "rings", loadChildren: ()=> import("./components/rings/rings.routes").then(m=>m.routes) },
-  { path: "rosarys", loadChildren : ()=> import("./components/resory/resory.routes").then(m=>m.routes) },
-  { path: "youtube",  loadChildren: () => import("./components/youtube-view/youtube.routes").then(m => m.routes) },
+  { path: "rings", loadChildren: () => import("./components/rings/rings.routes").then(m => m.routes) },
+  { path: "rosarys", loadChildren: () => import("./components/resory/resory.routes").then(m => m.routes) },
+  { path: "youtube", loadChildren: () => import("./components/youtube-view/youtube.routes").then(m => m.routes) },
   { path: "about-us", component: AboutUsComponent },
   { path: "prodcut-details/:id", component: ProductDetailsComponent },
-  { path: "admin", loadChildren: () => import("./admin/admin.module").then(m => m.AdminModule) }
+  { path: "admin", loadChildren: () => import("./admin/admin.module").then(m => m.AdminModule) },
+  // { path: "add-translation", loadComponent : ()=> import('./translate/components/add-translation').then(c=> c.AddTranslationComponent) },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { useHash: true,scrollPositionRestoration:"enabled" })],
+  imports: [RouterModule.forRoot(routes, { useHash: true, scrollPositionRestoration: "enabled" })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
