@@ -11,8 +11,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 @Component({
     selector: 'app-about-us',
     templateUrl: './about-us.component.html',
-    styleUrls: ['./about-us.component.scss', '../../../modules/css-styles/admin.form.product.styles.css',
-        '../../../modules/css-styles/change-position.drag-drop.css', '../../../modules/css-styles/admin.styles.css'],
+    styleUrls: ['./about-us.component.scss'],
     standalone: true,
     imports: [FormsModule, ReactiveFormsModule, NgxPaginationModule]
 })

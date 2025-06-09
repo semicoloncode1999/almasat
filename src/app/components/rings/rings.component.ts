@@ -13,7 +13,7 @@ import { ProductShapeComponent } from 'src/app/shared/components/product-shape/p
 @Component({
   selector: 'app-rings',
   templateUrl: './rings.component.html',
-  styleUrls: ['./rings.component.scss', '../../modules/css-styles/producst.css'],
+  styleUrls: ['./rings.component.scss', '../../modules/css-styles/producst.scss'],
   standalone: true,
   imports: [NgClass, RouterLink, NgxPaginationModule, ToNumberPipe, ProductShapeComponent],
   schemas:[CUSTOM_ELEMENTS_SCHEMA]

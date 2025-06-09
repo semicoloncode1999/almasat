@@ -14,7 +14,7 @@ import { ProductsCarouselComponent } from 'src/app/shared/components/products-ca
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss', '../../modules/css-styles/producst.css'],
+  styleUrls: ['./home.component.scss', '../../modules/css-styles/producst.scss'],
   standalone: true,
   imports: [FormsModule, ReactiveFormsModule, CarouselModule, ToNumberPipe, NgClass,ProductsCarouselComponent],
 })

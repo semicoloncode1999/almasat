@@ -1,4 +1,7 @@
 
+@use 'admin.form.product.styles.scss';
+@use 'change-position.drag-drop.scss';
+
 .price-input,
 .country-input{
     width: 30%;

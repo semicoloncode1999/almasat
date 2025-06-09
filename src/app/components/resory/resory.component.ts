@@ -14,7 +14,7 @@ import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-resory',
   templateUrl: './resory.component.html',
-  styleUrls: ['./resory.component.scss', '../../modules/css-styles/producst.css'],
+  styleUrls: ['./resory.component.scss', '../../modules/css-styles/producst.scss'],
   standalone :true,
   imports:[NgxPaginationModule,NgClass,NgFor,ToNumberPipe,RouterLink]
 })

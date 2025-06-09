@@ -13,7 +13,7 @@ import { CountriesCurrencyService } from 'src/app/modules/services/countries-cur
 @Component({
     selector: 'app-product',
     templateUrl: './product.component.html',
-    styleUrls: ['./product.component.scss', '../../../modules/css-styles/admin.form.product.styles.css', '../../../modules/css-styles/change-position.drag-drop.css'],
+    styleUrls: ['./product.component.scss', ],
     standalone: true,
     imports: [FormsModule, ReactiveFormsModule, CdkDropList, CdkDrag, ViewEditProdsComponent]
 })

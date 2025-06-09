@@ -12,7 +12,7 @@ import { SkeletonModule } from 'primeng/skeleton';
 @Component({
   selector: 'app-product-details',
   templateUrl: './product-details.component.html',
-  styleUrls: ['./product-details.component.scss', '../../modules/css-styles/producst.css'],
+  styleUrls: ['./product-details.component.scss', '../../modules/css-styles/producst.scss'],
   standalone: true,
   imports: [FormsModule, ReactiveFormsModule, NgClass , NgFor , NgIf ,SkeletonModule ]
 })
