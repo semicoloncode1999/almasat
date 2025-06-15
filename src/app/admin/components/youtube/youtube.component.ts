@@ -10,8 +10,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 @Component({
     selector: 'app-youtube',
     templateUrl: './youtube.component.html',
-    styleUrls: ['./youtube.component.scss', 'admin.form.product.styles.scss',
-        'change-position.drag-drop.scss', 'admin.styles.scss'],
+    styleUrls: ['./youtube.component.scss'],
     standalone: true,
     imports: [FormsModule, ReactiveFormsModule, NgxPaginationModule, YoutubeSafeurlPipe]
 })

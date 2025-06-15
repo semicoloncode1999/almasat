@@ -9,7 +9,7 @@ import { SocialMediaService } from 'src/app/modules/services/social-media.servic
 @Component({
     selector: 'app-social-links',
     templateUrl: './social-links.component.html',
-    styleUrls: ['./social-links.component.scss', '../../../modules/css-styles/admin.form.product.styles.scss', '../../../modules/css-styles/change-position.drag-drop.scss'],
+    styleUrls: ['./social-links.component.scss'],
     standalone: true,
     imports: [FormsModule, ReactiveFormsModule]
 })
